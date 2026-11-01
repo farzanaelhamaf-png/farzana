@@ -24,8 +24,8 @@ const pages = [
     title: "Forskning og publikasjoner",
     description: "Masteroppgave, forskningsrapporter og artikler.",
     icon: "▤",
-    href: null,
-    status: "Kommer",
+    href: "/admin/arbeid",
+    status: "Klar",
   },
   {
     title: "Prosjekter",

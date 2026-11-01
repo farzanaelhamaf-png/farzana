@@ -20,7 +20,7 @@ export default function Home() {
   return <>
     <header className="topbar">
       <a className="wordmark" href="#hjem">{content.site_name}</a>
-      <nav aria-label="Hovedmeny"><a href="#hjem">Hjem</a><a href="/om-meg">Om meg</a><a href="#arbeid">Arbeid</a><a href="#arbeid">Publikasjoner</a><a href="#arbeid">Prosjekter</a><a href="#kontakt">Kontakt</a></nav>
+      <nav aria-label="Hovedmeny"><a href="#hjem">Hjem</a><a href="/om-meg">Om meg</a><a href="/arbeid">Arbeid</a><a href="/arbeid">Publikasjoner</a><a href="/arbeid">Prosjekter</a><a href="#kontakt">Kontakt</a></nav>
       <a className="admin-link" href="/admin">Admin</a>
     </header>
     <main>
@@ -31,7 +31,7 @@ export default function Home() {
           <p className="eyebrow">{content.eyebrow}</p>
           <h1>{content.headline}</h1>
           <p className="intro">{content.introduction}</p>
-          <div className="actions"><a className="button primary" href="#arbeid">Utforsk mitt arbeid <span aria-hidden>→</span></a><a className="button outline" href="/om-meg">Om meg</a></div>
+          <div className="actions"><a className="button primary" href="/arbeid">Utforsk mitt arbeid <span aria-hidden>→</span></a><a className="button outline" href="/om-meg">Om meg</a></div>
         </div>
         {!content.hero_image && <p className="photo-hint">Hovedbildet kan legges til i administrasjonspanelet</p>}
       </section>
