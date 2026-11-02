@@ -28,6 +28,13 @@ const pages = [
     status: "Klar",
   },
   {
+    title: "Meldinger",
+    description: "Les og administrer henvendelser fra kontaktskjemaet.",
+    icon: "✉",
+    href: "/admin/meldinger",
+    status: "Klar",
+    },
+  {
     title: "Prosjekter",
     description: "Vis frem prosjekter, samarbeid og aktiviteter.",
     icon: "◇",
