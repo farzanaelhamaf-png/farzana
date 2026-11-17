@@ -9,6 +9,12 @@ function Photo({ src, className = '', children }) {
   return <div className={`photo ${className}`} style={src ? { backgroundImage: `url("${src}")` } : undefined}>{children}</div>;
 }
 
+function HeroPhoto({ src }) {
+  return <div className="hero-photo">
+    {src && <Image src={src} alt="" fill sizes="100vw" priority unoptimized />}
+  </div>;
+}
+
 function FeaturePhoto({ src, className }) {
   return <div className={`photo ${className}`}>
     {src && <Image src={src} alt="" fill sizes="(max-width: 530px) 100vw, (max-width: 850px) 50vw, 25vw" unoptimized />}
@@ -27,12 +33,12 @@ export default function Home() {
   return <>
     <header className="topbar">
       <a className="wordmark" href="#hjem">{content.site_name}</a>
-      <nav aria-label="Hovedmeny"><a href="#hjem">Hjem</a><a href="/om-meg">Om meg</a><a href="/arbeid">Arbeid</a><a href="/arbeid">Publikasjoner</a><a href="/arbeid">Prosjekter</a><a href="#kontakt">Kontakt</a></nav>
+      <nav aria-label="Hovedmeny"><a href="#hjem">Hjem</a><a href="/om-meg">Om meg</a><a href="/arbeid">Arbeid</a><a href="/arbeid">Publikasjoner</a><a href="/arbeid">Prosjekter</a><a href="/kontakt">Kontakt</a></nav>
       <a className="admin-link" href="/admin">Admin</a>
     </header>
     <main>
       <section id="hjem" className="hero">
-        <Photo src={content.hero_image} className="hero-photo" />
+        <HeroPhoto src={content.hero_image} />
         <div className="hero-shade" />
         <div className="hero-inner">
           <p className="eyebrow">{content.eyebrow}</p>
@@ -43,7 +49,7 @@ export default function Home() {
         {!content.hero_image && <p className="photo-hint">Hovedbildet kan legges til i administrasjonspanelet</p>}
       </section>
       <section id="arbeid" className="features" aria-label="Arbeidsområder">
-        {sections.map((item, i) => <a className="feature" href={item.href || '#kontakt'} key={i}>
+        {sections.map((item, i) => <a className="feature" href={item.href === '#kontakt' ? '/kontakt' : item.href || '/kontakt'} key={i}>
           <FeaturePhoto src={item.image} className={`feature-photo placeholder-${i % 4}`} />
           <h2>{item.title}</h2><p>{item.description}</p><span className="arrow" aria-hidden>→</span>
         </a>)}

@@ -7,7 +7,7 @@ import { supabase } from '@/lib/supabase';
 import { defaults } from '@/lib/content';
 
 async function createThumbnail(file) {
-  const image = new Image();
+  const image = new window.Image();
   const objectUrl = URL.createObjectURL(file);
 
   try {
@@ -105,7 +105,7 @@ export default function Admin() {
     return <div><label htmlFor={key}>{label}</label>{multiline ? <textarea id={key} value={content[key] || ''} onChange={e => update(key, e.target.value)} /> : <input id={key} value={content[key] || ''} onChange={e => update(key, e.target.value)} />}</div>;
   }
   function imageField(label, src, onUpload, makeThumbnail = false) {
-    return <div><label>{label}</label>{src && <Image className="preview" src={src} width={220} height={140} unoptimized alt="Forhåndsvisning" />}<input type="file" accept="image/png,image/jpeg,image/webp,image/avif" disabled={busy} onChange={e => { upload(e.target.files?.[0], onUpload, makeThumbnail); e.target.value = ''; }} /></div>;
+    return <div><label>{label}</label>{src && <div className="preview"><Image src={src} fill sizes="220px" unoptimized alt="Forhåndsvisning" /></div>}<input type="file" accept="image/png,image/jpeg,image/webp,image/avif" disabled={busy} onChange={e => { upload(e.target.files?.[0], onUpload, makeThumbnail); e.target.value = ''; }} /></div>;
   }
   return <main className="admin-page"><Link href="/">← Til nettsiden</Link><h1>Administrasjon</h1>
     {!supabase ? <p className="status">Supabase er ikke konfigurert. Legg inn miljøvariablene i frontend/.env.local.</p> : !session ?

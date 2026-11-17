@@ -1,0 +1,12 @@
+services:
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    environment:
+      CI: "1"
+      NEXT_PUBLIC_SUPABASE_URL: http://127.0.0.1:54321
+      NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: test-publishable-key
+      NEXT_PUBLIC_TURNSTILE_SITE_KEY: test-turnstile-site-key
+      TURNSTILE_SECRET_KEY: test-turnstile-secret
+      SUPABASE_SERVICE_ROLE_KEY: test-service-role-key
