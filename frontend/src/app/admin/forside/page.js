@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { defaults } from '@/lib/content';
+import { isHeicImage, prepareImageFile } from '@/lib/heic-upload';
 
 async function createThumbnail(file) {
   const image = new window.Image();
@@ -75,12 +76,14 @@ export default function Admin() {
   }
   async function upload(file, callback, makeThumbnail = false) {
     if (!file) return;
-    if (!file.type.startsWith('image/')) { setStatus('Velg en bildefil.'); return; }
+    if (!file.type.startsWith('image/') && !isHeicImage(file)) { setStatus('Velg en bildefil.'); return; }
     if (file.size > 8 * 1024 * 1024) { setStatus('Bildet må være mindre enn 8 MB.'); return; }
     setBusy(true); setStatus('Laster opp bilde …');
     try {
-      const uploadFile = makeThumbnail ? await createThumbnail(file) : file;
-      const extension = makeThumbnail ? 'webp' : file.name.split('.').pop()?.toLowerCase() || 'jpg';
+      const preparedFile = await prepareImageFile(file);
+      if (preparedFile.size > 8 * 1024 * 1024) throw new Error('Det konverterte bildet er større enn 8 MB.');
+      const uploadFile = makeThumbnail ? await createThumbnail(preparedFile) : preparedFile;
+      const extension = uploadFile.name.split('.').pop()?.toLowerCase() || 'jpg';
       const path = `${crypto.randomUUID()}.${extension}`;
       const { error } = await supabase.storage.from('site-images').upload(path, uploadFile, { upsert: false, contentType: uploadFile.type });
       if (error) setStatus(`Opplasting feilet: ${error.message}`);
@@ -105,7 +108,7 @@ export default function Admin() {
     return <div><label htmlFor={key}>{label}</label>{multiline ? <textarea id={key} value={content[key] || ''} onChange={e => update(key, e.target.value)} /> : <input id={key} value={content[key] || ''} onChange={e => update(key, e.target.value)} />}</div>;
   }
   function imageField(label, src, onUpload, makeThumbnail = false) {
-    return <div><label>{label}</label>{src && <div className="preview"><Image src={src} fill sizes="220px" unoptimized alt="Forhåndsvisning" /></div>}<input type="file" accept="image/png,image/jpeg,image/webp,image/avif" disabled={busy} onChange={e => { upload(e.target.files?.[0], onUpload, makeThumbnail); e.target.value = ''; }} /></div>;
+    return <div><label>{label}</label>{src && <div className="preview"><Image src={src} fill sizes="220px" unoptimized alt="Forhåndsvisning" /></div>}<input type="file" accept="image/png,image/jpeg,image/webp,image/avif,image/heic,image/heif,.heic,.heif" disabled={busy} onChange={e => { upload(e.target.files?.[0], onUpload, makeThumbnail); e.target.value = ''; }} /></div>;
   }
   return <main className="admin-page"><Link href="/">← Til nettsiden</Link><h1>Administrasjon</h1>
     {!supabase ? <p className="status">Supabase er ikke konfigurert. Legg inn miljøvariablene i frontend/.env.local.</p> : !session ?

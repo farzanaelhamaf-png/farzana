@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { aboutDefaults } from '@/lib/about-content';
+import { isHeicImage, prepareImageFile } from '@/lib/heic-upload';
 
 export default function AboutAdmin() {
   const [session, setSession] = useState(null);
@@ -42,19 +43,26 @@ export default function AboutAdmin() {
 
   async function upload(file, key) {
     if (!file) return;
-    if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) { setStatus('Bruk JPG, PNG eller WebP.'); return; }
+    if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type) && !isHeicImage(file)) { setStatus('Bruk JPG, PNG, WebP eller HEIC/HEIF.'); return; }
     if (file.size > 8 * 1024 * 1024) { setStatus('Bildet må være under 8 MB.'); return; }
     setBusy(true); setStatus('Laster opp bilde …');
-    const extension = file.type === 'image/png' ? 'png' : file.type === 'image/webp' ? 'webp' : 'jpg';
-    const path = `${crypto.randomUUID()}.${extension}`;
-    const { error } = await supabase.storage.from('site-images').upload(path, file, { contentType: file.type, upsert: false });
-    if (error) setStatus(`Opplasting feilet: ${error.message}`);
-    else {
-      const { data } = supabase.storage.from('site-images').getPublicUrl(path);
-      update(key, data.publicUrl);
-      setStatus('Bilde lastet opp. Trykk «Lagre Om meg» for å publisere.');
+    try {
+      const uploadFile = await prepareImageFile(file);
+      if (uploadFile.size > 8 * 1024 * 1024) throw new Error('Det konverterte bildet er større enn 8 MB.');
+      const extension = uploadFile.type === 'image/png' ? 'png' : uploadFile.type === 'image/webp' ? 'webp' : 'jpg';
+      const path = `${crypto.randomUUID()}.${extension}`;
+      const { error } = await supabase.storage.from('site-images').upload(path, uploadFile, { contentType: uploadFile.type, upsert: false });
+      if (error) setStatus(`Opplasting feilet: ${error.message}`);
+      else {
+        const { data } = supabase.storage.from('site-images').getPublicUrl(path);
+        update(key, data.publicUrl);
+        setStatus('Bilde lastet opp. Trykk «Lagre Om meg» for å publisere.');
+      }
+    } catch (error) {
+      setStatus(`Kunne ikke behandle bildet: ${error.message}`);
+    } finally {
+      setBusy(false);
     }
-    setBusy(false);
   }
 
   async function save() {
@@ -68,7 +76,7 @@ export default function AboutAdmin() {
     return <label className="block mb-5 text-sm font-medium">{label}{multiline ? <textarea className="mt-2 w-full rounded border border-stone-300 p-3 text-base min-h-28" value={content[key] ?? ''} onChange={e => update(key, e.target.value)} /> : <input className="mt-2 w-full rounded border border-stone-300 p-3 text-base" value={content[key] ?? ''} onChange={e => update(key, e.target.value)} />}</label>;
   }
   function imageField(label, key) {
-    return <div className="mb-6"><label className="block text-sm font-medium mb-2" htmlFor={`upload-${key}`}>{label}</label>{content[key] && <img src={content[key]} alt="Forhåndsvisning" className="mb-3 max-h-52 rounded object-cover" />}<input id={`upload-${key}`} type="file" accept="image/jpeg,image/png,image/webp" disabled={busy} onChange={e => { upload(e.target.files?.[0], key); e.target.value = ''; }} /></div>;
+    return <div className="mb-6"><label className="block text-sm font-medium mb-2" htmlFor={`upload-${key}`}>{label}</label>{content[key] && <img src={content[key]} alt="Forhåndsvisning" className="mb-3 max-h-52 rounded object-cover" />}<input id={`upload-${key}`} type="file" accept="image/jpeg,image/png,image/webp,image/heic,image/heif,.heic,.heif" disabled={busy} onChange={e => { upload(e.target.files?.[0], key); e.target.value = ''; }} /></div>;
   }
   const panel = 'bg-white border border-stone-200 rounded-lg p-6 mb-6 shadow-sm';
   return <main className="min-h-screen bg-[#faf8f3] text-[#24352e] px-5 py-10"><div className="max-w-3xl mx-auto"><div className="flex flex-wrap gap-5 mb-8 text-sm"><Link href="/admin" className="underline">← Administrasjon</Link><Link href="/om-meg" className="underline">Se Om meg</Link></div><h1 className="font-serif text-4xl mb-8">Rediger Om meg</h1>

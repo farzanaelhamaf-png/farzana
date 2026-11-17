@@ -48,7 +48,9 @@ test("homepage editor saves text and uploads a resized WebP thumbnail", async ({
     return canvas.toDataURL("image/png");
   });
   const imageBuffer = Buffer.from(imageData.split(",")[1], "base64");
-  await page.locator('input[type="file"]').nth(1).setInputFiles({
+  const thumbnailUpload = page.locator('input[type="file"]').nth(1);
+  await expect(thumbnailUpload).toHaveAttribute("accept", /\.heic/);
+  await thumbnailUpload.setInputFiles({
     name: "large-thumbnail-source.png",
     mimeType: "image/png",
     buffer: imageBuffer,
@@ -113,7 +115,9 @@ test("about editor saves content", async ({ page }) => {
     canvas.getContext("2d").fillRect(0, 0, canvas.width, canvas.height);
     return canvas.toDataURL("image/png");
   });
-  await page.locator('input[type="file"]').first().setInputFiles({
+  const aboutImageUpload = page.locator('input[type="file"]').first();
+  await expect(aboutImageUpload).toHaveAttribute("accept", /\.heic/);
+  await aboutImageUpload.setInputFiles({
     name: "about-test.png",
     mimeType: "image/png",
     buffer: Buffer.from(imageData.split(",")[1], "base64"),

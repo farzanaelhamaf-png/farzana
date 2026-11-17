@@ -52,6 +52,9 @@ The suite covers contact API validation and message delivery, public pages,
 administrator access, content editing, thumbnail uploads, and message status
 updates.
 
+Image uploads in the homepage and About editors accept HEIC/HEIF and convert
+those files to JPEG in the browser before sending them to Supabase.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
