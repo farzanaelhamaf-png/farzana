@@ -1,11 +1,18 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { supabase } from '@/lib/supabase';
 import { defaults } from '@/lib/content';
 
 function Photo({ src, className = '', children }) {
   return <div className={`photo ${className}`} style={src ? { backgroundImage: `url("${src}")` } : undefined}>{children}</div>;
+}
+
+function FeaturePhoto({ src, className }) {
+  return <div className={`photo ${className}`}>
+    {src && <Image src={src} alt="" fill sizes="(max-width: 530px) 100vw, (max-width: 850px) 50vw, 25vw" unoptimized />}
+  </div>;
 }
 
 export default function Home() {
@@ -37,7 +44,7 @@ export default function Home() {
       </section>
       <section id="arbeid" className="features" aria-label="Arbeidsområder">
         {sections.map((item, i) => <a className="feature" href={item.href || '#kontakt'} key={i}>
-          <Photo src={item.image} className={`feature-photo placeholder-${i % 4}`} />
+          <FeaturePhoto src={item.image} className={`feature-photo placeholder-${i % 4}`} />
           <h2>{item.title}</h2><p>{item.description}</p><span className="arrow" aria-hidden>→</span>
         </a>)}
       </section>
