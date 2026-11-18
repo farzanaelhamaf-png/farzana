@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { getTranslations } from '@/lib/site-translations';
 import { localePath } from '@/lib/locales';
+import { SiteFooter, SiteHeader } from '@/components/site-chrome';
 
 function Photo({ src, className = '', children }) {
   return <div className={`photo ${className}`} style={src ? { backgroundImage: `url("${src}")` } : undefined}>{children}</div>;
@@ -49,14 +49,9 @@ export default function Home({ locale = 'en' }) {
     });
   }, [defaults, locale]);
   const sections = Array.isArray(content.sections) ? content.sections : defaults.sections;
-  const common = translated.common;
   const path = page => localePath(locale, page);
   return <div className="homepage">
-    <header className="topbar">
-      <a className="wordmark" href="#hjem">{content.site_name}</a>
-      <nav aria-label={common.navigation}><a href="#hjem">{common.home}</a><a href={path('about')}>{common.about}</a><a href={path('work')}>{common.work}</a><a href={path('work')}>{common.publications}</a><a href={path('work')}>{common.projects}</a><a href={path('contact')}>{common.contact}</a></nav>
-      {locale === 'no' && <Link className="admin-link" href="/admin">{common.admin}</Link>}
-    </header>
+    <SiteHeader locale={locale} currentPage="home" />
     <main>
       <section id="hjem" className="hero">
         <HeroPhoto src={content.hero_image} />
@@ -65,7 +60,7 @@ export default function Home({ locale = 'en' }) {
           <p className="eyebrow">{content.eyebrow}</p>
           <h1>{content.headline}</h1>
           <p className="intro">{content.introduction}</p>
-          <div className="actions"><a className="button primary" href={path('work')}>{translated.home.actions.work} <span aria-hidden>→</span></a><a className="button outline" href={path('about')}>{translated.home.actions.about}</a></div>
+          <div className="actions"><a className="button primary" href={path('work')}>{translated.home.actions.work} <span aria-hidden>→</span></a></div>
         </div>
         {!content.hero_image && <p className="photo-hint">{translated.home.photo_hint}</p>}
       </section>
@@ -81,6 +76,6 @@ export default function Home({ locale = 'en' }) {
       </section>
       <section id="kontakt" className="contact"><p className="eyebrow">{translated.home.contact_section.eyebrow}</p><h2>{translated.home.contact_section.title}</h2><p>{translated.home.contact_section.description}</p>{content.contact_email ? <a href={`mailto:${content.contact_email}`}>{content.contact_email} →</a> : <p>{translated.home.contact_section.missingEmail}</p>}</section>
     </main>
-    <footer><span>{common.copyright.replace('{year}', String(new Date().getFullYear()))}</span>{locale === 'no' && <Link href="/admin">{common.admin}</Link>}</footer>
+    <SiteFooter locale={locale} />
   </div>;
 }

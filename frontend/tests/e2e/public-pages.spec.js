@@ -13,9 +13,11 @@ test("English homepage renders content, navigation and un-cropped thumbnails", a
   })).toBeVisible();
   await expect(page.locator(".feature")).toHaveCount(4);
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
-  await expect(page.locator(".topbar nav").getByRole("link", { name: "About" })).toHaveAttribute("href", "/about");
-  await expect(page.locator(".topbar nav").getByRole("link", { name: "Work" })).toHaveAttribute("href", "/work");
-  await expect(page.locator(".topbar nav").getByRole("link", { name: "Contact" })).toHaveAttribute("href", "/contact");
+  await expect(page.locator(".site-header nav").getByRole("link", { name: "About" })).toHaveAttribute("href", "/about");
+  await expect(page.getByRole("link", { name: "About me", exact: true })).toHaveCount(0);
+  await expect(page.locator(".site-header nav").getByRole("link", { name: "Work" })).toHaveAttribute("href", "/work");
+  await expect(page.locator(".site-header nav").getByRole("link")).toHaveCount(3);
+  await expect(page.locator(".site-footer-links").getByRole("link", { name: "Contact" })).toHaveAttribute("href", "/contact");
   await expect(page.locator(".feature").first()).toHaveAttribute("href", "/contact");
   await expect(page.locator('link[rel="alternate"][hreflang="nb-NO"]')).toHaveAttribute("href", "https://farzana.no/no/");
   await expect(page.locator(".contact a[href^='mailto:']")).toHaveAttribute("href", "mailto:hello@example.com");
@@ -104,4 +106,31 @@ test("language selector preserves the current page when changing language", asyn
   await page.getByRole("combobox", { name: "Language" }).selectOption("no");
   await expect(page).toHaveURL(/\/no\/about$/);
   await expect(page.locator("html")).toHaveAttribute("lang", "nb-NO");
+});
+
+test("all languages share the same header and place contact in the footer", async ({ page }) => {
+  await mockSupabase(page);
+  const locales = [
+    { prefix: "", home: "Home", about: "About", work: "Work", contact: "Contact", language: "Language", homePath: "/", contactPath: "/contact" },
+    { prefix: "/no", home: "Hjem", about: "Om meg", work: "Arbeid", contact: "Kontakt", language: "Språk", homePath: "/no/", contactPath: "/no/contact" },
+    { prefix: "/fa-af", home: "صفحهٔ اصلی", about: "دربارهٔ من", work: "فعالیت‌ها", contact: "تماس", language: "زبان", homePath: "/fa-af/", contactPath: "/fa-af/contact" },
+    { prefix: "/ps", home: "کور", about: "زما په اړه", work: "کار", contact: "اړیکه", language: "ژبه", homePath: "/ps/", contactPath: "/ps/contact" },
+  ];
+
+  for (const locale of locales) {
+    for (const pagePath of [locale.homePath, `${locale.prefix}/about`, `${locale.prefix}/work`, locale.contactPath]) {
+      await page.goto(pagePath);
+      const navigation = page.locator(".site-header nav");
+      await expect(navigation.getByRole("link")).toHaveCount(3);
+      await expect(navigation.getByRole("link", { name: locale.home })).toBeVisible();
+      await expect(navigation.getByRole("link", { name: locale.about })).toBeVisible();
+      await expect(navigation.getByRole("link", { name: locale.work })).toBeVisible();
+      await expect(navigation.getByRole("link", { name: locale.contact })).toHaveCount(0);
+      await expect(page.locator(".site-header-controls .language-switcher").getByRole("combobox", { name: locale.language })).toBeVisible();
+      await expect(page.locator(".site-footer-links").getByRole("link", { name: locale.contact })).toHaveAttribute("href", locale.contactPath);
+      if (pagePath === locale.homePath) {
+        await expect(page.getByRole("link", { name: locale.about, exact: true })).toHaveCount(1);
+      }
+    }
+  }
 });

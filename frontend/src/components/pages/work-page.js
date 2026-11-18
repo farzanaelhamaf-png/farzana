@@ -6,6 +6,7 @@ import { supabase } from "@/lib/supabase";
 import { workDefaults } from "@/lib/work-content";
 import { getTranslations } from "@/lib/site-translations";
 import { localePath } from "@/lib/locales";
+import { SiteFooter, SiteHeader } from "@/components/site-chrome";
 
 function SectionHeading({ eyebrow, title, description }) {
   return (
@@ -56,7 +57,6 @@ export default function ArbeidPage({ locale = "no" }) {
     };
   }, [locale]);
 
-  const common = translated.common;
   const ui = translated.work;
   const path = page => localePath(locale, page);
 
@@ -78,19 +78,7 @@ export default function ArbeidPage({ locale = "no" }) {
 
   return (
     <main className="work-page">
-      <header className="work-nav">
-        <Link href={path("home")} className="work-logo">
-          farzana.no
-        </Link>
-        <nav aria-label={common.navigation}>
-          <Link href={path("home")}>{common.home}</Link>
-          <Link href={path("about")}>{common.about}</Link>
-          <Link href={path("work")} aria-current="page">
-            {common.work}
-          </Link>
-          <Link href={path("contact")}>{common.contact}</Link>
-        </nav>
-      </header>
+      <SiteHeader locale={locale} currentPage="work" />
 
       <section className="work-hero">
         <div className="work-hero-content">
@@ -248,10 +236,7 @@ export default function ArbeidPage({ locale = "no" }) {
         </Link>
       </section>
 
-      <footer className="work-footer">
-        <span>{ui.sections.footer.replace("{year}", String(new Date().getFullYear()))}</span>
-        <Link href={path("home")}>{ui.links.home}</Link>
-      </footer>
+      <SiteFooter locale={locale} currentPage="work" />
     </main>
   );
 }

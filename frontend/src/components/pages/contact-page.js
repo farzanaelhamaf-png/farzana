@@ -1,9 +1,8 @@
 "use client";
-import Link from "next/link";
 import Script from "next/script";
 import { useEffect, useRef, useState } from "react";
 import { getTranslations } from "@/lib/site-translations";
-import { localePath } from "@/lib/locales";
+import { SiteFooter, SiteHeader } from "@/components/site-chrome";
 
 const topicIds = ["research", "speaking", "dialogue", "media", "other"];
 const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
@@ -11,7 +10,6 @@ const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 export default function KontaktPage({ locale = "no" }) {
   const translated = getTranslations(locale);
   const content = translated.contact;
-  const common = translated.common;
   const [form, setForm] = useState({ name: "", email: "", topic: topicIds[0], message: "", website: "" });
   const [token, setToken] = useState("");
   const [status, setStatus] = useState("idle");
@@ -47,10 +45,7 @@ export default function KontaktPage({ locale = "no" }) {
   return (
     <main className="public-page contact-page min-h-screen bg-[var(--brand-warm-ivory)] text-[var(--brand-soft-charcoal)]">
       {siteKey && <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" strategy="afterInteractive" onReady={() => setScriptReady(true)} />}
-      <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-7 text-sm">
-        <Link href={localePath(locale, "home")} className="font-semibold tracking-wide">farzana.no</Link>
-        <nav aria-label={common.navigation} className="flex gap-5 text-[var(--brand-deep-forest)]"><Link href={localePath(locale, "home")}>{common.home}</Link><Link href={localePath(locale, "about")}>{common.about}</Link><Link href={localePath(locale, "work")}>{common.work}</Link></nav>
-      </header>
+      <SiteHeader locale={locale} currentPage="contact" />
       <section className="mx-auto max-w-6xl px-6 pb-14 pt-14 md:pt-24">
         <p className="mb-5 text-xs font-semibold tracking-[0.22em] text-[var(--brand-deep-forest)]">{content.eyebrow}</p>
         <h1 className="max-w-3xl text-5xl font-light tracking-tight md:text-7xl">{content.title}</h1>
@@ -71,7 +66,7 @@ export default function KontaktPage({ locale = "no" }) {
           {notice && <p role="status" className={status === "error" ? "text-sm text-red-700" : "text-sm text-[#4B504D]"}>{notice}</p>}
         </form>
       </section>
-      <footer className="mx-auto flex max-w-6xl justify-between border-t border-[var(--brand-natural-sand)] px-6 py-8 text-xs text-[#4B504D]"><span>{common.copyright.replace("{year}", String(new Date().getFullYear()))}</span><Link href={localePath(locale, "home")}>{content.footer}</Link></footer>
+      <SiteFooter locale={locale} currentPage="contact" />
     </main>
   );
 }

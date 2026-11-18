@@ -29,8 +29,99 @@
   outline-offset: 3px;
 }
 
-[dir="rtl"] .language-switcher {
-  justify-content: flex-start;
+.language-switcher {
+  display: flex;
+  align-items: center;
+}
+
+.language-switcher select {
+  border: 1px solid var(--brand-natural-sand);
+  border-radius: 6px;
+  padding: 8px 12px;
+  background: var(--brand-warm-ivory);
+  color: var(--brand-soft-charcoal);
+}
+
+.language-switcher-standalone {
+  position: fixed;
+  z-index: 50;
+  top: 1rem;
+  right: 1rem;
+  border: 1px solid var(--brand-natural-sand);
+  border-radius: 6px;
+  padding: 8px 12px;
+  background: var(--brand-warm-ivory);
+  box-shadow: 0 1px 3px rgb(48 53 50 / 12%);
+}
+
+[dir="rtl"] .language-switcher-standalone {
+  right: auto;
+  left: 1rem;
+}
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 18px clamp(24px, 7vw, 110px);
+  border-bottom: 1px solid var(--brand-natural-sand);
+  background: var(--brand-warm-ivory);
+}
+
+.site-logo {
+  color: var(--brand-deep-forest);
+  font: 30px Georgia, serif;
+  letter-spacing: -1px;
+  white-space: nowrap;
+}
+
+.site-header-controls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: clamp(12px, 2vw, 24px);
+}
+
+.site-header nav,
+.site-footer-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: clamp(12px, 2vw, 24px);
+}
+
+.site-header nav {
+  color: var(--brand-deep-forest);
+  font-size: 14px;
+}
+
+.site-header nav a:hover,
+.site-header nav a:focus-visible,
+.site-header nav a[aria-current="page"],
+.site-footer a:hover,
+.site-footer a:focus-visible {
+  color: var(--brand-soft-charcoal);
+}
+
+.site-header nav a[aria-current="page"] {
+  font-weight: 600;
+}
+
+.site-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px clamp(24px, 7vw, 110px);
+  border-top: 1px solid var(--brand-natural-sand);
+  background: var(--brand-warm-ivory);
+  color: var(--brand-soft-charcoal);
+  font-size: 12px;
+}
+
+.site-footer-links {
+  color: var(--brand-deep-forest);
 }
 
 .homepage {
@@ -654,6 +745,29 @@ a.dashboard-card:hover {
 }
 
 @media (max-width: 700px) {
+  .site-header {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 18px 24px;
+  }
+
+  .site-header-controls {
+    width: 100%;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .site-header nav,
+  .site-footer-links {
+    gap: 12px;
+  }
+
+  .site-footer {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 24px;
+  }
+
   .work-nav {
     flex-direction: column;
     align-items: flex-start;

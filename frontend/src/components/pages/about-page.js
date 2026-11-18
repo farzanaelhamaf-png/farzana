@@ -6,6 +6,7 @@ import { supabase } from '@/lib/supabase';
 import { aboutDefaults } from '@/lib/about-content';
 import { getTranslations } from '@/lib/site-translations';
 import { localePath } from '@/lib/locales';
+import { SiteFooter, SiteHeader } from '@/components/site-chrome';
 
 export default function AboutPage({ locale = 'no' }) {
   const translated = getTranslations(locale).about;
@@ -24,10 +25,7 @@ export default function AboutPage({ locale = 'no' }) {
   const path = page => localePath(locale, page);
   const picture = (url, alt, className = '') => url ? <img src={url} alt={alt} className={`w-full h-full object-cover ${className}`} /> : <div aria-label={alt} className={`w-full h-full bg-[var(--brand-natural-sand)] ${className}`} />;
   return <main className="public-page about-page min-h-screen bg-[var(--brand-warm-ivory)] text-[var(--brand-soft-charcoal)]">
-    <header className="flex items-center justify-between px-6 md:px-14 py-6 border-b border-[var(--brand-natural-sand)] bg-[var(--brand-warm-ivory)]">
-      <Link href={path('home')} className="font-serif text-2xl tracking-tight">farzana.no</Link>
-      <nav className="flex gap-5 text-sm text-[var(--brand-deep-forest)]"><Link href={path('home')}>{getTranslations(locale).common.home}</Link><Link href={path('about')} className="font-semibold">{getTranslations(locale).common.about}</Link><Link href={path('work')}>{getTranslations(locale).common.work}</Link><Link href={path('contact')}>{getTranslations(locale).common.contact}</Link></nav>
-    </header>
+    <SiteHeader locale={locale} currentPage="about" />
     <section className="relative min-h-[70vh] flex items-end overflow-hidden">
       <div className="absolute inset-0">{picture(content.hero_image, labels.imageHero)}</div>
       <div className="absolute inset-0 bg-gradient-to-t from-[#122c28]/90 via-[#122c28]/35 to-transparent" />
@@ -44,6 +42,6 @@ export default function AboutPage({ locale = 'no' }) {
     <section className="bg-[var(--brand-natural-sand)] py-20 md:py-24"><div className="max-w-6xl mx-auto px-6"><p className="text-xs uppercase tracking-[0.2em] text-[var(--brand-deep-forest)] mb-4">{labels.areas}</p><h2 className="font-serif text-4xl md:text-5xl mb-12">{labels.areasTitle}</h2><div className="grid md:grid-cols-2 gap-5">{content.areas.map((area, i) => <article key={i} className="bg-[var(--brand-warm-ivory)] p-8 md:p-10 rounded-sm"><span className="text-[var(--brand-deep-forest)] text-sm">0{i+1}</span><h3 className="font-serif text-3xl mt-4 mb-4">{area.title}</h3><p className="text-[#4B504D] leading-7">{area.description}</p></article>)}</div></div></section>
     <section className="max-w-6xl mx-auto px-6 py-20 md:py-28 grid md:grid-cols-2 gap-12 items-center"><div className="h-[450px] overflow-hidden rounded-sm">{picture(content.nature_image, labels.imageNature)}</div><div><p className="text-xs uppercase tracking-[0.2em] text-[var(--brand-deep-forest)] mb-5">{labels.nature}</p><h2 className="font-serif text-4xl md:text-5xl mb-7">{content.nature_title}</h2><p className="text-lg leading-8 text-[#4B504D]">{content.nature_text}</p></div></section>
     <section className="bg-[var(--brand-warm-ivory)] text-[var(--brand-soft-charcoal)] py-20 md:py-24 text-center px-6"><p className="text-xs uppercase tracking-[0.2em] text-[var(--brand-deep-forest)] mb-5">{labels.closing}</p><h2 className="font-serif text-4xl md:text-5xl max-w-3xl mx-auto leading-tight">{content.closing_title}</h2><p className="max-w-2xl mx-auto mt-7 text-lg leading-8 text-[#4B504D]">{content.closing_text}</p><Link href={path('contact')} className="inline-block mt-9 border border-[var(--brand-deep-forest)] bg-[var(--brand-deep-forest)] text-white rounded-md px-8 py-3 hover:bg-[#293F3A]">{labels.contact}</Link></section>
-    <footer className="px-6 md:px-14 py-7 flex justify-between text-sm bg-[var(--brand-warm-ivory)] text-[#4B504D] border-t border-[var(--brand-natural-sand)]"><span>{getTranslations(locale).common.copyright.replace('{year}', String(new Date().getFullYear()))}</span><Link href={path('home')}>{getTranslations(locale).common.backHome}</Link></footer>
+    <SiteFooter locale={locale} currentPage="about" />
   </main>;
 }

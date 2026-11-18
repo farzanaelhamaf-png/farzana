@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { getLocale, localePath, locales, pageFromPath } from '@/lib/locales';
 import { getTranslations } from '@/lib/site-translations';
 
-export default function LanguageSwitcher() {
+export default function LanguageSwitcher({ adminOnly = false }) {
   const pathname = usePathname();
   const router = useRouter();
   const currentLocale = getLocale(pathname.split('/').filter(Boolean)[0])?.code || 'en';
@@ -22,8 +22,10 @@ export default function LanguageSwitcher() {
     router.push(localePath(locale, pageFromPath(pathname)));
   }
 
+  if (adminOnly && !pathname.startsWith('/admin')) return null;
+
   return (
-    <label className="language-switcher flex min-h-14 w-full items-center justify-end border-b border-[var(--brand-natural-sand)] bg-[var(--brand-warm-ivory)] px-[clamp(20px,7vw,130px)] py-2 text-[var(--brand-soft-charcoal)]">
+    <label className={adminOnly ? 'language-switcher-standalone' : 'language-switcher'}>
       <span className="sr-only">{label}</span>
       <select
         aria-label={label}
