@@ -32,6 +32,16 @@ describe('locale configuration', () => {
     expect(metadata.title).toContain('درباره من');
   });
 
+  it('uses the correct Dari name and excludes the incorrect surname everywhere', () => {
+    const dariMetadata = pageMetadata('fa-af', 'about');
+    const dariTranslations = getTranslations('fa-af');
+
+    expect(dariMetadata.title).toContain('فرزانه الهام کوچی');
+    expect(dariTranslations.common.copyright).toContain('فرزانه الهام کوچی');
+    expect(JSON.stringify(dariMetadata)).not.toContain('کوهستانی');
+    expect(JSON.stringify(dariTranslations)).not.toContain('کوهستانی');
+  });
+
   it('provides translated content and contact topics for every locale', () => {
     for (const locale of ['en', 'no', 'fa-af', 'ps']) {
       const translations = getTranslations(locale);
