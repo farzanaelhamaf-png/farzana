@@ -172,6 +172,22 @@ describe("POST /api/contact", () => {
     expect(logError).toHaveBeenCalledWith("Contact notification failed:", 503);
   });
 
+  it("normalizes localized contact topic IDs before storing messages", async () => {
+    vi.stubEnv("TURNSTILE_SECRET_KEY", "test-secret");
+    vi.stubEnv("NEXT_PUBLIC_SUPABASE_URL", "https://supabase.example");
+    vi.stubEnv("SUPABASE_SERVICE_ROLE_KEY", "test-service-role-key");
+    const calls = mockExternalServices();
+
+    const result = await responseJson(await POST(request({
+      ...validPayload,
+      topic: "research",
+      locale: "en",
+    })));
+
+    expect(result).toEqual({ status: 200, body: { ok: true } });
+    expect(JSON.parse(calls[1].options.body).topic).toBe("Forskning og samarbeid");
+  });
+
   it("reports database write errors", async () => {
     vi.stubEnv("TURNSTILE_SECRET_KEY", "test-secret");
     vi.stubEnv("NEXT_PUBLIC_SUPABASE_URL", "https://supabase.example");

@@ -1,10 +1,16 @@
 import './globals.css';
+import { headers } from 'next/headers';
+import { getLocale, pageMetadata } from '@/lib/locales';
+import LanguageSwitcher from '@/components/language-switcher';
 
 export const metadata = {
-  title: 'Farzana Elham Kochai | Mennesker, samfunn og muligheter',
-  description: 'Menneskerettigheter, offentlig politikk, forskning og dialog.',
+  metadataBase: new URL('https://farzana.no'),
+  ...pageMetadata('en', 'home'),
 };
 
-export default function RootLayout({ children }) {
-  return <html lang="no"><body>{children}</body></html>;
+export default async function RootLayout({ children }) {
+  const requestHeaders = await headers();
+  const locale = getLocale(requestHeaders.get('x-site-locale')) || getLocale('en');
+
+  return <html lang={locale.lang} dir={locale.dir} data-scroll-behavior="smooth"><body>{children}<LanguageSwitcher /></body></html>;
 }

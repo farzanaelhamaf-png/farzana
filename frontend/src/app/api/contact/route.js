@@ -3,7 +3,14 @@ import { createClient } from "@supabase/supabase-js";
 
 export const runtime = "nodejs";
 
-const topics = new Set(["Forskning og samarbeid", "Foredrag og arrangementer", "Dialog og fasilitering", "Medieforespørsel", "Annet"]);
+const topicLabels = {
+  research: "Forskning og samarbeid",
+  speaking: "Foredrag og arrangementer",
+  dialogue: "Dialog og fasilitering",
+  media: "Medieforespørsel",
+  other: "Annet",
+};
+const topics = new Set(Object.values(topicLabels));
 const validEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 const text = (value) => typeof value === "string" ? value.trim() : "";
 
@@ -15,7 +22,8 @@ export async function POST(request) {
   if (JSON.stringify(body).length > 10000) return NextResponse.json({ error: "Meldingen er for lang." }, { status: 413 });
   // Honeypot: silent success for bots.
   if (body.website) return NextResponse.json({ ok: true });
-  const name = text(body.name), email = text(body.email), topic = text(body.topic), message = text(body.message);
+  const name = text(body.name), email = text(body.email), topicValue = text(body.topic), message = text(body.message);
+  const topic = topicLabels[topicValue] || topicValue;
   if (name.length < 2 || name.length > 120 || email.length > 254 || !validEmail(email) || !topics.has(topic) || message.length < 10 || message.length > 5000) {
     return NextResponse.json({ error: "Kontroller feltene og prøv igjen." }, { status: 400 });
   }
