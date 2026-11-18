@@ -18,6 +18,19 @@ test("English homepage renders content, navigation and un-cropped thumbnails", a
   await expect(page.locator(".site-header nav").getByRole("link", { name: "Work" })).toHaveAttribute("href", "/work");
   await expect(page.locator(".site-header nav").getByRole("link")).toHaveCount(3);
   await expect(page.locator(".site-footer-links").getByRole("link", { name: "Contact" })).toHaveAttribute("href", "/contact");
+  const socialLinks = [
+    ["Facebook page", "https://www.facebook.com/FarzanaElhamaf/"],
+    ["Facebook profile", "https://www.facebook.com/haskaheela/"],
+    ["X", "https://x.com/Farzanakochai"],
+    ["Instagram", "https://www.instagram.com/farzanaelhamkochai/"],
+    ["LinkedIn", "https://www.linkedin.com/in/farzanaelhamkochai/"],
+  ];
+  for (const [label, href] of socialLinks) {
+    const link = page.locator(".site-footer-social-links").getByRole("link", { name: label });
+    await expect(link).toHaveAttribute("href", href);
+    await expect(link).toHaveAttribute("target", "_blank");
+    await expect(link).toHaveAttribute("rel", "noopener noreferrer");
+  }
   await expect(page.locator(".feature").first()).toHaveAttribute("href", "/contact");
   await expect(page.locator('link[rel="alternate"][hreflang="nb-NO"]')).toHaveAttribute("href", "https://farzana.no/no/");
   await expect(page.locator(".contact a[href^='mailto:']")).toHaveAttribute("href", "mailto:hello@example.com");
@@ -128,6 +141,7 @@ test("all languages share the same header and place contact in the footer", asyn
       await expect(navigation.getByRole("link", { name: locale.contact })).toHaveCount(0);
       await expect(page.locator(".site-header-controls .language-switcher").getByRole("combobox", { name: locale.language })).toBeVisible();
       await expect(page.locator(".site-footer-links").getByRole("link", { name: locale.contact })).toHaveAttribute("href", locale.contactPath);
+      await expect(page.locator(".site-footer-social-links a")).toHaveCount(5);
       if (pagePath === locale.homePath) {
         await expect(page.getByRole("link", { name: locale.about, exact: true })).toHaveCount(1);
       }

@@ -124,6 +124,40 @@
   color: var(--brand-deep-forest);
 }
 
+.site-footer-social,
+.site-footer-social-links {
+  display: flex;
+  align-items: center;
+}
+
+.site-footer-social {
+  gap: 14px;
+}
+
+.site-footer-social-links {
+  gap: 10px;
+  color: var(--brand-deep-forest);
+}
+
+.site-social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  min-height: 32px;
+  border-radius: 50%;
+}
+
+.site-social-link:hover,
+.site-social-link:focus-visible {
+  color: var(--brand-soft-charcoal);
+}
+
+.site-social-link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
 .homepage {
   min-height: 100vh;
   color: var(--brand-soft-charcoal);
