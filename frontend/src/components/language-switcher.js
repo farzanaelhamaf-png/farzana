@@ -23,7 +23,7 @@ export default function LanguageSwitcher() {
   }
 
   return (
-    <label className="language-switcher fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-md border border-[var(--brand-natural-sand)] bg-[var(--brand-warm-ivory)] px-3 py-2 text-sm text-[var(--brand-soft-charcoal)] shadow-sm">
+    <label className="language-switcher fixed top-4 right-4 z-50 flex items-center gap-2 rounded-md border border-[var(--brand-natural-sand)] bg-[var(--brand-warm-ivory)] px-3 py-2 text-sm text-[var(--brand-soft-charcoal)] shadow-sm">
       <span className="sr-only">{label}</span>
       <select
         aria-label={label}
