@@ -51,7 +51,7 @@ export default function Home({ locale = 'en' }) {
   const sections = Array.isArray(content.sections) ? content.sections : defaults.sections;
   const common = translated.common;
   const path = page => localePath(locale, page);
-  return <>
+  return <div className="homepage">
     <header className="topbar">
       <a className="wordmark" href="#hjem">{content.site_name}</a>
       <nav aria-label={common.navigation}><a href="#hjem">{common.home}</a><a href={path('about')}>{common.about}</a><a href={path('work')}>{common.work}</a><a href={path('work')}>{common.publications}</a><a href={path('work')}>{common.projects}</a><a href={path('contact')}>{common.contact}</a></nav>
@@ -82,5 +82,5 @@ export default function Home({ locale = 'en' }) {
       <section id="kontakt" className="contact"><p className="eyebrow">{translated.home.contact_section.eyebrow}</p><h2>{translated.home.contact_section.title}</h2><p>{translated.home.contact_section.description}</p>{content.contact_email ? <a href={`mailto:${content.contact_email}`}>{content.contact_email} →</a> : <p>{translated.home.contact_section.missingEmail}</p>}</section>
     </main>
     <footer><span>{common.copyright.replace('{year}', String(new Date().getFullYear()))}</span>{locale === 'no' && <Link href="/admin">{common.admin}</Link>}</footer>
-  </>;
+  </div>;
 }

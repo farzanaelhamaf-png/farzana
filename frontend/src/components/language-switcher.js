@@ -23,11 +23,11 @@ export default function LanguageSwitcher() {
   }
 
   return (
-    <label className="fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-full border border-stone-300 bg-white/95 px-3 py-2 text-sm text-stone-800 shadow-lg">
+    <label className="language-switcher fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-md border border-[var(--brand-natural-sand)] bg-[var(--brand-warm-ivory)] px-3 py-2 text-sm text-[var(--brand-soft-charcoal)] shadow-sm">
       <span className="sr-only">{label}</span>
       <select
         aria-label={label}
-        className="cursor-pointer bg-transparent outline-none"
+        className="cursor-pointer bg-transparent outline-none focus-visible:ring-2 focus-visible:ring-[var(--brand-deep-forest)]"
         value={currentLocale}
         onChange={changeLanguage}
         dir="ltr"
