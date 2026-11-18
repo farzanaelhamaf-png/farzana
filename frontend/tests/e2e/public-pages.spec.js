@@ -97,7 +97,7 @@ test("Dari and Pashto pages render with localized language and right-to-left dir
   await page.goto("/ps");
   await expect(page.locator("html")).toHaveAttribute("lang", "ps-AF");
   await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
-  await expect(page.getByRole("heading", { name: "د یوې عادلانه، ټولشموله او سوله‌ییزې ټولنې لپاره" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "د یوې لا عادلانه، ټولشموله او سوله‌ییزې ټولنې د جوړولو لپاره" })).toBeVisible();
 });
 
 test("language selector preserves the current page when changing language", async ({ page }) => {

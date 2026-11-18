@@ -29,7 +29,7 @@ describe('locale configuration', () => {
       'ps-AF': '/ps/about',
       'x-default': '/about',
     });
-    expect(metadata.title).toContain('درباره من');
+    expect(metadata.title).toContain('دربارهٔ من');
   });
 
   it('uses the correct Dari name and excludes the incorrect surname everywhere', () => {
@@ -40,6 +40,16 @@ describe('locale configuration', () => {
     expect(dariTranslations.common.copyright).toContain('فرزانه الهام کوچی');
     expect(JSON.stringify(dariMetadata)).not.toContain('کوهستانی');
     expect(JSON.stringify(dariTranslations)).not.toContain('کوهستانی');
+  });
+
+  it('uses accurate Pashto terms for dialogue facilitation and institutions', () => {
+    const pashto = getTranslations('ps');
+
+    expect(pashto.home.sections[3].title).toContain('د خبرو اترو اسانتیا');
+    expect(pashto.about.areas[2].description).toContain('د خبرو اترو د بهیر د اسانه کولو');
+    expect(pashto.work.engagements[1].title).toContain('د خبرو اترو اسانتیا');
+    expect(pashto.work.experiences[2].organization).toBe('د کوچیانو خپلواکه عمومي ریاست');
+    expect(JSON.stringify(pashto)).not.toContain('اسانتیاوې');
   });
 
   it('provides translated content and contact topics for every locale', () => {
