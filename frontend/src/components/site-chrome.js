@@ -75,7 +75,6 @@ export function SiteFooter({ locale, currentPage }) {
   const common = getTranslations(locale).common;
   const socialLinks = [
     { label: common.facebookPage, platform: 'facebook', href: 'https://www.facebook.com/FarzanaElhamaf/' },
-    { label: common.facebookProfile, platform: 'facebook', href: 'https://www.facebook.com/haskaheela/' },
     { label: 'X', platform: 'x', href: 'https://x.com/Farzanakochai' },
     { label: 'Instagram', platform: 'instagram', href: 'https://www.instagram.com/farzanaelhamkochai/' },
     { label: 'LinkedIn', platform: 'linkedin', href: 'https://www.linkedin.com/in/farzanaelhamkochai/' },

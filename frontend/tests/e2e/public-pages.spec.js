@@ -20,7 +20,6 @@ test("English homepage renders content, navigation and un-cropped thumbnails", a
   await expect(page.locator(".site-footer-links").getByRole("link", { name: "Contact" })).toHaveAttribute("href", "/contact");
   const socialLinks = [
     ["Facebook page", "https://www.facebook.com/FarzanaElhamaf/"],
-    ["Facebook profile", "https://www.facebook.com/haskaheela/"],
     ["X", "https://x.com/Farzanakochai"],
     ["Instagram", "https://www.instagram.com/farzanaelhamkochai/"],
     ["LinkedIn", "https://www.linkedin.com/in/farzanaelhamkochai/"],
@@ -141,7 +140,7 @@ test("all languages share the same header and place contact in the footer", asyn
       await expect(navigation.getByRole("link", { name: locale.contact })).toHaveCount(0);
       await expect(page.locator(".site-header-controls .language-switcher").getByRole("combobox", { name: locale.language })).toBeVisible();
       await expect(page.locator(".site-footer-links").getByRole("link", { name: locale.contact })).toHaveAttribute("href", locale.contactPath);
-      await expect(page.locator(".site-footer-social-links a")).toHaveCount(5);
+      await expect(page.locator(".site-footer-social-links a")).toHaveCount(4);
       if (pagePath === locale.homePath) {
         await expect(page.getByRole("link", { name: locale.about, exact: true })).toHaveCount(1);
       }

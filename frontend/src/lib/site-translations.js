@@ -7,7 +7,7 @@ const english = {
     home: 'Home', about: 'About', work: 'Work', contact: 'Contact',
     publications: 'Publications', projects: 'Projects', admin: 'Admin',
     language: 'Language', navigation: 'Main menu', backHome: 'Back to home ↑', copyright: '© {year} Farzana Elham Kochai',
-    follow: 'Follow me', socialLinks: 'Social media', facebookPage: 'Facebook page', facebookProfile: 'Facebook profile',
+    follow: 'Follow me', socialLinks: 'Social media', facebookPage: 'Facebook page',
   },
   home: {
     site_name: 'farzana.no',
@@ -114,7 +114,7 @@ const dari = {
     home: 'صفحهٔ اصلی', about: 'دربارهٔ من', work: 'فعالیت‌ها', contact: 'تماس',
     publications: 'نوشته‌ها', projects: 'پروژه‌ها', admin: 'مدیریت',
     language: 'زبان', navigation: 'فهرست اصلی', backHome: 'بازگشت به صفحهٔ اصلی ↑', copyright: '© {year} فرزانه الهام کوچی',
-    follow: 'در شبکه‌های اجتماعی دنبال کنید', socialLinks: 'شبکه‌های اجتماعی', facebookPage: 'صفحهٔ فیس‌بوک', facebookProfile: 'حساب فیس‌بوک',
+    follow: 'در شبکه‌های اجتماعی دنبال کنید', socialLinks: 'شبکه‌های اجتماعی', facebookPage: 'صفحهٔ فیس‌بوک',
   },
   home: {
     site_name: 'farzana.no',
@@ -221,7 +221,7 @@ const pashto = {
     home: 'کور', about: 'زما په اړه', work: 'کار', contact: 'اړیکه',
     publications: 'خپرونې', projects: 'پروژې', admin: 'مدیریت',
     language: 'ژبه', navigation: 'اصلي غورنۍ', backHome: 'بېرته کور ته ↑', copyright: '© {year} فرزانه الهام کوچی',
-    follow: 'ما په ټولنیزو رسنیو کې تعقیب کړئ', socialLinks: 'ټولنیزې رسنۍ', facebookPage: 'د فېسبوک پاڼه', facebookProfile: 'د فېسبوک حساب',
+    follow: 'ما په ټولنیزو رسنیو کې تعقیب کړئ', socialLinks: 'ټولنیزې رسنۍ', facebookPage: 'د فېسبوک پاڼه',
   },
   home: {
     site_name: 'farzana.no',
@@ -324,7 +324,7 @@ const pashto = {
 };
 
 const norwegian = {
-  common: { home: 'Hjem', about: 'Om meg', work: 'Arbeid', contact: 'Kontakt', publications: 'Publikasjoner', projects: 'Prosjekter', admin: 'Admin', language: 'Språk', navigation: 'Hovedmeny', backHome: 'Til forsiden ↑', copyright: '© {year} Farzana Elham Kochai', follow: 'Følg meg', socialLinks: 'Sosiale medier', facebookPage: 'Facebook-side', facebookProfile: 'Facebook-profil' },
+  common: { home: 'Hjem', about: 'Om meg', work: 'Arbeid', contact: 'Kontakt', publications: 'Publikasjoner', projects: 'Prosjekter', admin: 'Admin', language: 'Språk', navigation: 'Hovedmeny', backHome: 'Til forsiden ↑', copyright: '© {year} Farzana Elham Kochai', follow: 'Følg meg', socialLinks: 'Sosiale medier', facebookPage: 'Facebook-side' },
   home: {
     ...defaults,
     actions: { work: 'Utforsk mitt arbeid', about: 'Om meg' },
