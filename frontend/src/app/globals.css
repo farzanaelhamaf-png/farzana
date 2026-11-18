@@ -30,8 +30,7 @@
 }
 
 [dir="rtl"] .language-switcher {
-  right: auto;
-  left: 1rem;
+  justify-content: flex-start;
 }
 
 .homepage {

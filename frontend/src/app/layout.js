@@ -12,5 +12,5 @@ export default async function RootLayout({ children }) {
   const requestHeaders = await headers();
   const locale = getLocale(requestHeaders.get('x-site-locale')) || getLocale('en');
 
-  return <html lang={locale.lang} dir={locale.dir} data-scroll-behavior="smooth"><body>{children}<LanguageSwitcher /></body></html>;
+  return <html lang={locale.lang} dir={locale.dir} data-scroll-behavior="smooth"><body><LanguageSwitcher />{children}</body></html>;
 }
