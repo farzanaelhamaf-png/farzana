@@ -55,9 +55,28 @@ test("Norwegian work page shows publication, experience, engagement and media co
 
   await expect(page.getByRole("heading", { name: "Arbeid som bygger broer." })).toBeVisible();
   await expect(page.getByText("Publikasjon A")).toBeVisible();
-  await expect(page.getByText("Parlamentsmedlem")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "På tvers av lokalsamfunn, institusjoner og landegrenser" })).toBeVisible();
+  await expect(page.getByText("Reisen min begynte med en bekymring for menneskene rundt meg", { exact: false })).toBeVisible();
+  await expect(page.getByText("Parlamentsmedlem")).toHaveCount(0);
   await expect(page.getByText("Dialog og fasilitering")).toBeVisible();
   await expect(page.getByText("Manara Magazine")).toBeVisible();
+});
+
+test("professional experience narrative follows English source across all locales", async ({ page }) => {
+  await mockSupabase(page);
+  const locales = [
+    { path: "/work", title: "Across communities, institutions and borders", phrase: "My journey began with a concern for the people around me" },
+    { path: "/no/work", title: "På tvers av lokalsamfunn, institusjoner og landegrenser", phrase: "Reisen min begynte med en bekymring for menneskene rundt meg" },
+    { path: "/fa-af/work", title: "در میان جوامع، نهادها و مرزها", phrase: "مسیر من با نگرانی دربارهٔ مردم پیرامونم" },
+    { path: "/ps/work", title: "د ټولنو، بنسټونو او پولو ترمنځ", phrase: "زما سفر د شاوخوا خلکو او هغو نابرابریو په اړه له اندېښنې پیل شو" },
+  ];
+
+  for (const locale of locales) {
+    await page.goto(locale.path);
+    await expect(page.getByRole("heading", { name: locale.title })).toBeVisible();
+    await expect(page.getByText(locale.phrase, { exact: false })).toBeVisible();
+    await expect(page.locator(".work-experience-story > p")).toHaveCount(3);
+  }
 });
 
 test("Norwegian about page renders story, experience areas and contact links", async ({ page }) => {

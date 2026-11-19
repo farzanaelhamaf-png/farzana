@@ -64,10 +64,6 @@ export default function ArbeidPage({ locale = "no" }) {
     ? content.publications
     : [];
 
-  const experiences = Array.isArray(content.experiences)
-    ? content.experiences
-    : [];
-
   const engagements = Array.isArray(content.engagements)
     ? content.engagements
     : [];
@@ -156,19 +152,10 @@ export default function ArbeidPage({ locale = "no" }) {
         <SectionHeading
           eyebrow={ui.sections.practice}
           title={ui.sections.experience}
-          description={ui.sections.experienceDescription}
         />
-        <div className="work-timeline">
-          {experiences.map((item) => (
-            <article className="work-timeline-item" key={item.role + item.years}>
-              <span className="work-timeline-year">{item.years}</span>
-              <div>
-                <h3>{item.role}</h3>
-                <p className="work-organization">{item.organization}</p>
-                <p>{item.description}</p>
-              </div>
-            </article>
-          ))}
+        <div className="work-experience-story">
+          <h3>{ui.sections.experienceStoryTitle}</h3>
+          {ui.experienceStory.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
         </div>
       </section>
 

@@ -62,6 +62,7 @@ const english = {
       motivation: 'WHAT DRIVES ME', quote: 'Knowledge matters when it contributes to understanding, participation and the possibility of change.',
       practice: '02 / PRACTICE', experience: 'Professional experience',
       experienceDescription: 'Work in politics, development, institutions and civil society.',
+      experienceStoryTitle: 'Across communities, institutions and borders',
       engagement: '03 / ENGAGEMENT', engagementTitle: 'Dialogue, human rights & society',
       engagementDescription: 'Speaking, facilitation and engagement in Norway and internationally.',
       public: '04 / IN PUBLIC', media: 'Interviews & media contributions',
@@ -71,6 +72,11 @@ const english = {
       signature: 'FARZANA ELHAM KOCHAI', footer: '© {year} Farzana Elham Kochai',
       decoration: 'WORK & ENGAGEMENT',
     },
+    experienceStory: [
+      'My journey began with a concern for the people around me and the inequalities I encountered, long before I understood human rights as a professional field.',
+      'Over the years, that concern shaped my activism and developed into work across peacebuilding, civil society, institutional development and parliamentary representation in Afghanistan.',
+      'In Norway, I have continued exploring these interests through research, dialogue, advocacy and community engagement, bringing new perspectives to experiences that continue to shape my work.',
+    ],
     publications: [
       { category: 'Master’s thesis', year: '2025', title: 'Gendered Activism of Afghan Exiles: Navigating National Politics in Transnational Settings (Post-2021)', organization: 'NMBU', description: 'Qualitative research on the transnational political engagement of Afghan activists in exile.', link: 'https://nmbu.brage.unit.no/nmbu-xmlui/bitstream/handle/11250/3207553/no.nmbu%3Awiseflow%3A7365394%3A63650805.pdf?isAllowed=y&sequence=1' },
       { category: 'Research report', year: '2025', title: 'Community-Oriented Policing in Europe: The Case of Community Engagement in West Mercia, UK', organization: 'NMBU / ICT4COP', description: 'Co-authored work on community participation in policing and building trust.', link: '' },
@@ -169,6 +175,7 @@ const dari = {
       motivation: 'انگیزهٔ من', quote: 'دانش زمانی ارزشمند است که به درک، مشارکت و امکان تغییر کمک کند.',
       practice: '۰۲ / عمل', experience: 'تجربهٔ حرفه‌ای',
       experienceDescription: 'کار در سیاست، توسعه، نهادها و جامعهٔ مدنی.',
+      experienceStoryTitle: 'در میان جوامع، نهادها و مرزها',
       engagement: '۰۳ / مشارکت', engagementTitle: 'گفتگو، حقوق بشر و جامعه',
       engagementDescription: 'سخنرانی، تسهیل گفتگو و فعالیت در ناروی و در سطح بین‌المللی.',
       public: '۰۴ / در فضای عمومی', media: 'مصاحبه‌ها و بازتاب رسانه‌ای',
@@ -178,6 +185,11 @@ const dari = {
       signature: 'فرزانه الهام کوچی', footer: '© {year} فرزانه الهام کوچی',
       decoration: 'فعالیت‌ها و مشارکت',
     },
+    experienceStory: [
+      'مسیر من با نگرانی دربارهٔ مردم پیرامونم و نابرابری‌هایی آغاز شد که با آن‌ها روبه‌رو می‌شدم؛ بسیار پیش از آن‌که حقوق بشر را یک حوزهٔ تخصصی بشناسم.',
+      'این نگرانی در گذر سال‌ها به کنشگری من شکل داد و به فعالیت در زمینه‌های صلح‌سازی، جامعهٔ مدنی، توسعهٔ نهادی و نمایندگی پارلمانی در افغانستان انجامید.',
+      'در ناروی، این علاقه‌ها را از راه پژوهش، گفتگو، دادخواهی و مشارکت اجتماعی دنبال کرده‌ام و دیدگاه‌های تازه‌ای را با تجربه‌هایی پیوند داده‌ام که همچنان کارم را شکل می‌دهند.',
+    ],
     publications: [
       { category: 'پایان‌نامهٔ کارشناسی ارشد', year: '۲۰۲۵', title: 'Gendered Activism of Afghan Exiles: Navigating National Politics in Transnational Settings (Post-2021)', organization: 'NMBU', description: 'پژوهش کیفی دربارهٔ مشارکت سیاسی فراملی فعالان افغان در تبعید.', link: english.work.publications[0].link },
       { category: 'گزارش پژوهشی', year: '۲۰۲۵', title: 'Community-Oriented Policing in Europe: The Case of Community Engagement in West Mercia, UK', organization: 'NMBU / ICT4COP', description: 'پژوهشی مشترک دربارهٔ مشارکت جامعه در فعالیت‌های پولیس و اعتمادسازی.', link: '' },
@@ -276,6 +288,7 @@ const pashto = {
       motivation: 'زما انګېزه', quote: 'پوهه هغه وخت ارزښت لري چې د پوهاوي، ګډون او بدلون د رامنځته کېدو ملاتړ وکړي.',
       practice: '۰۲ / عمل', experience: 'مسلکي تجربه',
       experienceDescription: 'په سیاست، پراختیا، بنسټونو او مدني ټولنه کې کار.',
+      experienceStoryTitle: 'د ټولنو، بنسټونو او پولو ترمنځ',
       engagement: '۰۳ / ونډه', engagementTitle: 'خبرې اترې، بشري حقونه او ټولنه',
       engagementDescription: 'په ناروې او نړیواله کچه ویناوې، د خبرو اترو اسانه کول او ټولنیز ګډون.',
       public: '۰۴ / په عامه ډګر کې', media: 'مرکې او رسنیزې ونډې',
@@ -285,6 +298,11 @@ const pashto = {
       signature: 'فرزانه الهام کوچی', footer: '© {year} فرزانه الهام کوچی',
       decoration: 'کار او ونډه',
     },
+    experienceStory: [
+      'زما سفر د شاوخوا خلکو او هغو نابرابریو په اړه له اندېښنې پیل شو چې ما لیدلې؛ هغه وخت لا بشري حقونه د مسلکي ډګر په توګه نه پېژندل.',
+      'د کلونو په تېرېدو، دې اندېښنې زما مدني فعالیت ته بڼه ورکړه او په افغانستان کې د سولې جوړونې، مدني ټولنې، بنسټیز پرمختګ او پارلماني استازولۍ په برخو کې په کار واوښت.',
+      'په ناروې کې مې دا لېوالتیاوې د څېړنې، خبرو اترو، مدافعې او ټولنیز ګډون له لارې تعقیب کړې دي، او نوې لیدلوري مې له هغو تجربو سره یوځای کړي چې لا هم زما پر کار اغېز لري.',
+    ],
     publications: [
       { category: 'د ماسټرۍ پای‌لیک', year: '۲۰۲۵', title: 'Gendered Activism of Afghan Exiles: Navigating National Politics in Transnational Settings (Post-2021)', organization: 'NMBU', description: 'په تبعید کې د افغان فعالانو د پولې هاخوا سیاسي فعالیتونو کیفي څېړنه.', link: english.work.publications[0].link },
       { category: 'څېړنیز راپور', year: '۲۰۲۵', title: 'Community-Oriented Policing in Europe: The Case of Community Engagement in West Mercia, UK', organization: 'NMBU / ICT4COP', description: 'د پولیسو په کار کې د ټولنې د ګډون او باور جوړونې په اړه ګډه څېړنه.', link: '' },
@@ -336,7 +354,12 @@ const norwegian = {
     ...workDefaults,
     nav: { home: 'Hjem', about: 'Om meg', work: 'Arbeid', contact: 'Kontakt' },
     links: { explore: 'Utforsk publikasjoner ↓', experience: 'Se erfaring →', read: 'Les publikasjonen', evidence: 'Se dokumentasjon ↗', contact: 'Ta kontakt ↗', home: 'Til forsiden ↑' },
-    sections: { perspective: 'PERSPEKTIV', knowledge: '01 / KUNNSKAP', publications: 'Forskning & publikasjoner', publicationsDescription: 'Akademisk forskning, faglige analyser og bidrag til offentlig kunnskapsutvikling.', motivation: 'DET SOM DRIVER MEG', quote: 'Kunnskap får verdi når den bidrar til forståelse, deltakelse og muligheten til å skape endring.', practice: '02 / PRAKSIS', experience: 'Profesjonell erfaring', experienceDescription: 'Arbeid med politikk, utvikling, institusjoner og sivilsamfunn.', engagement: '03 / ENGASJEMENT', engagementTitle: 'Dialog, menneskerettigheter & samfunn', engagementDescription: 'Foredrag, fasilitering og engasjement i Norge og internasjonalt.', public: '04 / I OFFENTLIGHETEN', media: 'Intervjuer & mediebidrag', mediaDescription: 'Utvalgte intervjuer og omtaler om politikk, demokrati og menneskerettigheter.', collaboration: 'SAMARBEID', contactTitle: 'Har du en idé vi kan utvikle sammen?', contactText: 'Jeg er interessert i samarbeid innen forskning, menneskerettigheter, samfunnsutvikling, foredrag og dialog.', signature: 'FARZANA ELHAM KOCHAI', footer: '© {year} Farzana Elham Kochai', decoration: 'ARBEID & ENGASJEMENT' },
+    sections: { perspective: 'PERSPEKTIV', knowledge: '01 / KUNNSKAP', publications: 'Forskning & publikasjoner', publicationsDescription: 'Akademisk forskning, faglige analyser og bidrag til offentlig kunnskapsutvikling.', motivation: 'DET SOM DRIVER MEG', quote: 'Kunnskap får verdi når den bidrar til forståelse, deltakelse og muligheten til å skape endring.', practice: '02 / PRAKSIS', experience: 'Profesjonell erfaring', experienceDescription: 'Arbeid i politikk, utvikling, institusjoner og sivilsamfunn.', experienceStoryTitle: 'På tvers av lokalsamfunn, institusjoner og landegrenser', engagement: '03 / ENGASJEMENT', engagementTitle: 'Dialog, menneskerettigheter & samfunn', engagementDescription: 'Foredrag, fasilitering og engasjement i Norge og internasjonalt.', public: '04 / I OFFENTLIGHETEN', media: 'Intervjuer & mediebidrag', mediaDescription: 'Utvalgte intervjuer og omtaler om politikk, demokrati og menneskerettigheter.', collaboration: 'SAMARBEID', contactTitle: 'Har du en idé vi kan utvikle sammen?', contactText: 'Jeg er interessert i samarbeid innen forskning, menneskerettigheter, samfunnsutvikling, foredrag og dialog.', signature: 'FARZANA ELHAM KOCHAI', footer: '© {year} Farzana Elham Kochai', decoration: 'ARBEID & ENGASJEMENT' },
+    experienceStory: [
+      'Reisen min begynte med en bekymring for menneskene rundt meg og ulikhetene jeg møtte, lenge før jeg forsto menneskerettigheter som et fagfelt.',
+      'Gjennom årene formet denne bekymringen aktivismen min og utviklet seg til arbeid med fredsbygging, sivilsamfunn, institusjonsutvikling og parlamentarisk representasjon i Afghanistan.',
+      'I Norge har jeg fortsatt å utforske disse interessene gjennom forskning, dialog, påvirkningsarbeid og samfunnsengasjement, med nye perspektiver på erfaringer som fortsatt preger arbeidet mitt.',
+    ],
   },
   contact: {
     eyebrow: 'SAMARBEID · SAMTALER · MULIGHETER', title: 'La oss starte en samtale.',
