@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { getLocale, localePath, pageFromPath, pageMetadata } from '../src/lib/locales.js';
-import { getTranslations } from '../src/lib/site-translations.js';
+import { getTranslations, withCurrentEnglishAboutDefaults } from '../src/lib/site-translations.js';
+import { aboutDefaults, withCurrentAboutDefaults } from '../src/lib/about-content.js';
 
 describe('locale configuration', () => {
   it('defines the requested locales and language directions', () => {
@@ -60,5 +61,38 @@ describe('locale configuration', () => {
       expect(translations.work.publications.length).toBeGreaterThan(0);
       expect(translations.contact.topics).toHaveLength(5);
     }
+  });
+
+  it('removes the old trailing phrase from English and translated About closing copy', () => {
+    const previousEnglishParagraph = 'I welcome opportunities to exchange ideas, share perspectives and co-create through research, dialogue and collaboration.';
+    const currentEnglish = withCurrentEnglishAboutDefaults({
+      en_closing_paragraph_2: previousEnglishParagraph,
+    });
+
+    expect(currentEnglish.en_closing_paragraph_2).toBe(
+      'I welcome opportunities to exchange ideas, share perspectives and co-create.',
+    );
+    expect(getTranslations('en').about.closing_paragraphs[1]).toBe(currentEnglish.en_closing_paragraph_2);
+    expect(getTranslations('no').about.closing_paragraphs[1]).toBe(
+      'Jeg ønsker muligheter til å utveksle ideer, dele perspektiver og skape noe sammen.',
+    );
+    expect(getTranslations('fa-af').about.closing_paragraphs[1]).not.toContain('پژوهش، گفتگو و همکاری');
+    expect(getTranslations('ps').about.closing_paragraphs[1]).not.toContain('څېړنې، خبرو اترو او همکارۍ');
+  });
+
+  it('updates the old Norwegian About default without overwriting custom copy', () => {
+    const previousNorwegianParagraph = 'Jeg ønsker muligheter til å utveksle ideer, dele perspektiver og skape noe sammen gjennom forskning, dialog og samarbeid.';
+    const updated = withCurrentAboutDefaults({
+      closing_title: aboutDefaults.closing_title,
+      closing_text: `${aboutDefaults.closing_paragraphs[0]} ${previousNorwegianParagraph}`,
+    });
+    const custom = withCurrentAboutDefaults({
+      closing_title: 'En egen overskrift',
+      closing_text: 'En egendefinert avslutning.',
+    });
+
+    expect(updated.closing_text).toBe(aboutDefaults.closing_text);
+    expect(custom.closing_title).toBe('En egen overskrift');
+    expect(custom.closing_text).toBe('En egendefinert avslutning.');
   });
 });

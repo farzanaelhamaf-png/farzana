@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { aboutDefaults, withCurrentAboutDefaults } from '@/lib/about-content';
-import { getTranslations } from '@/lib/site-translations';
+import { getTranslations, withCurrentEnglishAboutDefaults } from '@/lib/site-translations';
 import { localePath } from '@/lib/locales';
 import { SiteFooter, SiteHeader } from '@/components/site-chrome';
 
@@ -27,7 +27,7 @@ export default function AboutPage({ locale = 'no' }) {
             closing_title: data.content.en_closing_title || translated.closing_title,
             closing_paragraphs: [
               data.content.en_closing_paragraph_1 || translated.closing_paragraphs[0],
-              data.content.en_closing_paragraph_2 || translated.closing_paragraphs[1],
+              withCurrentEnglishAboutDefaults(data.content).en_closing_paragraph_2 || translated.closing_paragraphs[1],
             ],
           }),
         });

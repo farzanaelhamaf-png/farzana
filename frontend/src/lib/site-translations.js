@@ -48,9 +48,9 @@ const english = {
     closing_title: 'Making space for what’s possible',
     closing_paragraphs: [
       'My work across communities, institutions and borders has brought different stories, perspectives and lessons.',
-      'I welcome opportunities to exchange ideas, share perspectives and co-create through research, dialogue and collaboration.',
+      'I welcome opportunities to exchange ideas, share perspectives and co-create.',
     ],
-    closing_text: 'My work across communities, institutions and borders has brought different stories, perspectives and lessons. I welcome opportunities to exchange ideas, share perspectives and co-create through research, dialogue and collaboration.',
+    closing_text: 'My work across communities, institutions and borders has brought different stories, perspectives and lessons. I welcome opportunities to exchange ideas, share perspectives and co-create.',
     labels: { story: 'My story', areas: 'Experience and engagement', areasTitle: 'What shapes my work', nature: 'Beyond work', closing: '', contact: 'Get in touch', imageHero: 'Farzana in a mountain landscape', imageStory: 'Farzana with people', imageNature: 'Farzana hiking in Norwegian nature' },
   },
   work: {
@@ -165,9 +165,9 @@ const dari = {
     closing_title: 'برای آنچه امکان‌پذیر است، فضا باز کنیم',
     closing_paragraphs: [
       'کار من در میان جوامع، نهادها و مرزها، روایت‌ها، دیدگاه‌ها و آموخته‌های گوناگونی را با هم پیوند داده است.',
-      'از فرصت‌هایی برای تبادل نظر، شریک‌ساختن دیدگاه‌ها و آفرینش مشترک از راه پژوهش، گفتگو و همکاری استقبال می‌کنم.',
+      'از فرصت‌هایی برای تبادل نظر، شریک‌ساختن دیدگاه‌ها و آفرینش مشترک استقبال می‌کنم.',
     ],
-    closing_text: 'کار من در میان جوامع، نهادها و مرزها، روایت‌ها، دیدگاه‌ها و آموخته‌های گوناگونی را با هم پیوند داده است. از فرصت‌هایی برای تبادل نظر، شریک‌ساختن دیدگاه‌ها و آفرینش مشترک از راه پژوهش، گفتگو و همکاری استقبال می‌کنم.',
+    closing_text: 'کار من در میان جوامع، نهادها و مرزها، روایت‌ها، دیدگاه‌ها و آموخته‌های گوناگونی را با هم پیوند داده است. از فرصت‌هایی برای تبادل نظر، شریک‌ساختن دیدگاه‌ها و آفرینش مشترک استقبال می‌کنم.',
     labels: { story: 'داستان من', areas: 'تجربه و مشارکت', areasTitle: 'چه چیز کارم را شکل می‌دهد', nature: 'بیرون از کار', closing: '', contact: 'تماس بگیرید', imageHero: 'فرزانه در یک منظرهٔ طبیعی', imageStory: 'فرزانه در کنار مردم', imageNature: 'فرزانه در طبیعت ناروی' },
   },
   work: {
@@ -282,9 +282,9 @@ const pashto = {
     closing_title: 'د شونې راتلونکې لپاره ځای جوړول',
     closing_paragraphs: [
       'زما کار د ټولنو، بنسټونو او پولو ترمنځ بېلابېلې کیسې، لیدلوري او زده‌کړې سره راټولې کړې دي.',
-      'زه د څېړنې، خبرو اترو او همکارۍ له لارې د نظرونو تبادلې، لیدلورو شریکولو او ګډ نوښت ته ښه راغلاست وایم.',
+      'د نظرونو تبادلې، لیدلورو شریکولو او ګډ نوښت ته ښه راغلاست وایم.',
     ],
-    closing_text: 'زما کار د ټولنو، بنسټونو او پولو ترمنځ بېلابېلې کیسې، لیدلوري او زده‌کړې سره راټولې کړې دي. زه د څېړنې، خبرو اترو او همکارۍ له لارې د نظرونو تبادلې، لیدلورو شریکولو او ګډ نوښت ته ښه راغلاست وایم.',
+    closing_text: 'زما کار د ټولنو، بنسټونو او پولو ترمنځ بېلابېلې کیسې، لیدلوري او زده‌کړې سره راټولې کړې دي. د نظرونو تبادلې، لیدلورو شریکولو او ګډ نوښت ته ښه راغلاست وایم.',
     labels: { story: 'زما کیسه', areas: 'تجربه او ونډه', areasTitle: 'زما کار څه جوړوي', nature: 'له کاره بهر', closing: '', contact: 'اړیکه ونیسئ', imageHero: 'فرزانه په غرنۍ منظره کې', imageStory: 'فرزانه له خلکو سره', imageNature: 'فرزانه د ناروې په طبیعت کې' },
   },
   work: {
@@ -393,4 +393,13 @@ export const translations = { en: english, no: norwegian, 'fa-af': dari, ps: pas
 
 export function getTranslations(locale) {
   return translations[locale] || translations.en;
+}
+
+export function withCurrentEnglishAboutDefaults(content = {}) {
+  const previousParagraph = 'I welcome opportunities to exchange ideas, share perspectives and co-create through research, dialogue and collaboration.';
+  if (content.en_closing_paragraph_2 !== previousParagraph) return content;
+  return {
+    ...content,
+    en_closing_paragraph_2: english.about.closing_paragraphs[1],
+  };
 }

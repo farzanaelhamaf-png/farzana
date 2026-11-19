@@ -136,7 +136,7 @@ test("about editor saves content", async ({ page }) => {
     "My work across communities, institutions and borders has brought different stories, perspectives and lessons.",
   );
   await page.getByLabel("Paragraph 2 (English)").fill(
-    "I welcome opportunities to exchange ideas, share perspectives and co-create through research, dialogue and collaboration.",
+    "I welcome opportunities to exchange ideas, share perspectives and co-create.",
   );
   await page.getByRole("button", { name: "Lagre Om meg" }).click();
 
@@ -146,11 +146,11 @@ test("about editor saves content", async ({ page }) => {
     "My work across communities, institutions and borders has brought different stories, perspectives and lessons.",
   );
   expect(mocks.content[2].en_closing_paragraph_2).toBe(
-    "I welcome opportunities to exchange ideas, share perspectives and co-create through research, dialogue and collaboration.",
+    "I welcome opportunities to exchange ideas, share perspectives and co-create.",
   );
   expect(mocks.content[2].closing_title).toBe("Skape rom for det som er mulig");
   expect(mocks.content[2].closing_text).toBe(
-    "Arbeidet mitt på tvers av lokalsamfunn, institusjoner og landegrenser har brakt med seg ulike historier, perspektiver og erfaringer. Jeg ønsker muligheter til å utveksle ideer, dele perspektiver og skape noe sammen gjennom forskning, dialog og samarbeid.",
+    "Arbeidet mitt på tvers av lokalsamfunn, institusjoner og landegrenser har brakt med seg ulike historier, perspektiver og erfaringer. Jeg ønsker muligheter til å utveksle ideer, dele perspektiver og skape noe sammen.",
   );
 
   await page.goto("/about");

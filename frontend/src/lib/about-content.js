@@ -22,16 +22,19 @@ export const aboutDefaults = {
   closing_title: 'Skape rom for det som er mulig',
   closing_paragraphs: [
     'Arbeidet mitt på tvers av lokalsamfunn, institusjoner og landegrenser har brakt med seg ulike historier, perspektiver og erfaringer.',
-    'Jeg ønsker muligheter til å utveksle ideer, dele perspektiver og skape noe sammen gjennom forskning, dialog og samarbeid.',
+    'Jeg ønsker muligheter til å utveksle ideer, dele perspektiver og skape noe sammen.',
   ],
-  closing_text: 'Arbeidet mitt på tvers av lokalsamfunn, institusjoner og landegrenser har brakt med seg ulike historier, perspektiver og erfaringer. Jeg ønsker muligheter til å utveksle ideer, dele perspektiver og skape noe sammen gjennom forskning, dialog og samarbeid.'
+  closing_text: 'Arbeidet mitt på tvers av lokalsamfunn, institusjoner og landegrenser har brakt med seg ulike historier, perspektiver og erfaringer. Jeg ønsker muligheter til å utveksle ideer, dele perspektiver og skape noe sammen.'
 };
 
 export function withCurrentAboutDefaults(content = {}) {
   const merged = { ...aboutDefaults, ...content };
+  const previousNorwegianParagraph = 'Jeg ønsker muligheter til å utveksle ideer, dele perspektiver og skape noe sammen gjennom forskning, dialog og samarbeid.';
   if (
-    content.closing_title === 'Nysgjerrig på mennesker. Engasjert i muligheter.'
-    && content.closing_text === 'Jeg ønsker å bidra der erfaring, forskning og dialog kan skape større forståelse og mer inkluderende løsninger. Jeg er åpen for samarbeid, samtaler og nye prosjekter.'
+    (content.closing_title === 'Nysgjerrig på mennesker. Engasjert i muligheter.'
+      && content.closing_text === 'Jeg ønsker å bidra der erfaring, forskning og dialog kan skape større forståelse og mer inkluderende løsninger. Jeg er åpen for samarbeid, samtaler og nye prosjekter.')
+    || (content.closing_title === aboutDefaults.closing_title
+      && content.closing_text === `${aboutDefaults.closing_paragraphs[0]} ${previousNorwegianParagraph}`)
   ) {
     merged.closing_title = aboutDefaults.closing_title;
     merged.closing_text = aboutDefaults.closing_text;

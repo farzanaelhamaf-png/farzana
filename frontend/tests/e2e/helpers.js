@@ -35,6 +35,9 @@ const defaultSiteContent = {
     story: ["Første historieavsnitt.", "Andre historieavsnitt."],
     closing_title: "Nysgjerrig på mennesker. Engasjert i muligheter.",
     closing_text: "Jeg ønsker å bidra der erfaring, forskning og dialog kan skape større forståelse og mer inkluderende løsninger. Jeg er åpen for samarbeid, samtaler og nye prosjekter.",
+    en_closing_title: "Making space for what’s possible",
+    en_closing_paragraph_1: "My work across communities, institutions and borders has brought different stories, perspectives and lessons.",
+    en_closing_paragraph_2: "I welcome opportunities to exchange ideas, share perspectives and co-create through research, dialogue and collaboration.",
     areas: [
       { title: "Politikk og menneskerettigheter", description: "Rettigheter og politikk." },
       { title: "Forskning og kunnskap", description: "Forskning og analyse." },

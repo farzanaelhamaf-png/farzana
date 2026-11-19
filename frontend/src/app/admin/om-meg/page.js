@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { aboutDefaults, withCurrentAboutDefaults } from '@/lib/about-content';
-import { getTranslations } from '@/lib/site-translations';
+import { getTranslations, withCurrentEnglishAboutDefaults } from '@/lib/site-translations';
 import { isHeicImage, prepareImageFile } from '@/lib/heic-upload';
 
 const englishAboutDefaults = getTranslations('en').about;
@@ -37,7 +37,7 @@ export default function AboutAdmin() {
         ...withCurrentAboutDefaults(data.content),
         en_closing_title: data.content.en_closing_title ?? englishAboutDefaults.closing_title,
         en_closing_paragraph_1: data.content.en_closing_paragraph_1 ?? englishAboutDefaults.closing_paragraphs[0],
-        en_closing_paragraph_2: data.content.en_closing_paragraph_2 ?? englishAboutDefaults.closing_paragraphs[1],
+        en_closing_paragraph_2: withCurrentEnglishAboutDefaults(data.content).en_closing_paragraph_2 ?? englishAboutDefaults.closing_paragraphs[1],
       });
       setLoading(false);
     }

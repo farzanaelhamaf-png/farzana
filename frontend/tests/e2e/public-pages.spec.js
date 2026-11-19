@@ -92,6 +92,7 @@ test("Norwegian about page renders story, experience areas and contact links", a
   await expect(page.getByRole("link", { name: "Ta kontakt", exact: true })).toHaveAttribute("href", "/no/contact");
   await expect(page.getByRole("heading", { name: "Skape rom for det som er mulig" })).toBeVisible();
   await expect(page.getByText("Arbeidet mitt på tvers av lokalsamfunn, institusjoner og landegrenser har brakt med seg ulike historier, perspektiver og erfaringer.", { exact: true })).toBeVisible();
+  await expect(page.getByText("Jeg ønsker muligheter til å utveksle ideer, dele perspektiver og skape noe sammen.", { exact: true })).toBeVisible();
   await expect(page.getByText("Veien videre", { exact: true })).toHaveCount(0);
 });
 
@@ -105,9 +106,10 @@ test("English about page shows the exact revised closing copy without its label"
     { exact: true },
   )).toBeVisible();
   await expect(page.getByText(
-    "I welcome opportunities to exchange ideas, share perspectives and co-create through research, dialogue and collaboration.",
+    "I welcome opportunities to exchange ideas, share perspectives and co-create.",
     { exact: true },
   )).toBeVisible();
+  await expect(page.getByText(/through research, dialogue and collaboration/)).toHaveCount(0);
   await expect(page.getByText("What comes next", { exact: true })).toHaveCount(0);
   await expect(page.getByRole("link", { name: "Get in touch", exact: true })).toHaveAttribute("href", "/contact");
 });
@@ -119,18 +121,21 @@ test("translated about closing copy follows the English version", async ({ page 
       path: "/no/about",
       title: "Skape rom for det som er mulig",
       paragraph: "Arbeidet mitt på tvers av lokalsamfunn, institusjoner og landegrenser har brakt med seg ulike historier, perspektiver og erfaringer.",
+      secondParagraph: "Jeg ønsker muligheter til å utveksle ideer, dele perspektiver og skape noe sammen.",
       button: "Ta kontakt",
     },
     {
       path: "/fa-af/about",
       title: "برای آنچه امکان‌پذیر است، فضا باز کنیم",
       paragraph: "کار من در میان جوامع، نهادها و مرزها، روایت‌ها، دیدگاه‌ها و آموخته‌های گوناگونی را با هم پیوند داده است.",
+      secondParagraph: "از فرصت‌هایی برای تبادل نظر، شریک‌ساختن دیدگاه‌ها و آفرینش مشترک استقبال می‌کنم.",
       button: "تماس بگیرید",
     },
     {
       path: "/ps/about",
       title: "د شونې راتلونکې لپاره ځای جوړول",
       paragraph: "زما کار د ټولنو، بنسټونو او پولو ترمنځ بېلابېلې کیسې، لیدلوري او زده‌کړې سره راټولې کړې دي.",
+      secondParagraph: "د نظرونو تبادلې، لیدلورو شریکولو او ګډ نوښت ته ښه راغلاست وایم.",
       button: "اړیکه ونیسئ",
     },
   ];
@@ -139,6 +144,7 @@ test("translated about closing copy follows the English version", async ({ page 
     await page.goto(translation.path);
     await expect(page.getByRole("heading", { name: translation.title })).toBeVisible();
     await expect(page.getByText(translation.paragraph, { exact: true })).toBeVisible();
+    await expect(page.getByText(translation.secondParagraph, { exact: true })).toBeVisible();
     await expect(page.getByRole("link", { name: translation.button, exact: true })).toBeVisible();
     await expect(page.getByText(/What comes next|Veien videre|گام بعدی|راتلونکی ګام/)).toHaveCount(0);
   }
