@@ -12,8 +12,8 @@ const english = {
   home: {
     site_name: 'farzana.no',
     eyebrow: 'PEOPLE · SOCIETY · POSSIBILITIES',
-    headline: 'Building a more just, inclusive and peaceful society',
-    introduction: 'I work at the intersection of human rights, public policy, research and dialogue, building bridges between knowledge, people and action.',
+    headline: 'Working towards a more just, inclusive and peaceful society',
+    introduction: 'My work brings together experience in parliamentary work, institutional development, civil society and human rights, alongside research and dialogue practice in Norway.',
     hero_image: '', quote: 'I believe in the power of people, encounters and knowledge — and in the possibility of change when we build bridges together.',
     quote_image: '', contact_email: '',
     actions: { work: 'Explore my work', about: 'About me' },

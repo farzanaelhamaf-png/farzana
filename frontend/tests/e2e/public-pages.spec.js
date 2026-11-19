@@ -9,8 +9,11 @@ test("English homepage renders content, navigation and un-cropped thumbnails", a
   await page.goto("/");
 
   await expect(page.getByRole("heading", {
-    name: "Building a more just, inclusive and peaceful society",
+    name: "Working towards a more just, inclusive and peaceful society",
   })).toBeVisible();
+  await expect(page.getByText(
+    "My work brings together experience in parliamentary work, institutional development, civil society and human rights, alongside research and dialogue practice in Norway.",
+  )).toBeVisible();
   await expect(page.locator(".feature")).toHaveCount(4);
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
   await expect(page.locator(".site-header nav").getByRole("link", { name: "About" })).toHaveAttribute("href", "/about");
