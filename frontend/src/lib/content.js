@@ -1,8 +1,8 @@
 export const defaults = {
   site_name: 'farzana.no',
   eyebrow: 'MENNESKER · SAMFUNN · MULIGHETER',
-  headline: 'Et mer rettferdig, inkluderende og fredelig samfunn',
-  introduction: 'Jeg arbeider i skjæringspunktet mellom menneskerettigheter, offentlig politikk, forskning og dialog – med mål om å bygge broer mellom kunnskap, mennesker og handling.',
+  headline: 'Arbeider for et mer rettferdig, inkluderende og fredelig samfunn',
+  introduction: 'Arbeidet mitt samler erfaring fra parlamentarisk arbeid, institusjonsutvikling, sivilsamfunn og menneskerettigheter, sammen med forskning og dialogarbeid i Norge.',
   hero_image: '',
   quote: 'Jeg tror på kraften i mennesker, møter og kunnskap – og på at endring er mulig når vi bygger broer sammen.',
   quote_image: '',

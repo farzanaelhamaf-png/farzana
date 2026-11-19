@@ -7,7 +7,7 @@ const english = {
     home: 'Home', about: 'About', work: 'Work', contact: 'Contact',
     publications: 'Publications', projects: 'Projects', admin: 'Admin',
     language: 'Language', navigation: 'Main menu', backHome: 'Back to home ↑', copyright: '© {year} Farzana Elham Kochai',
-    follow: 'Follow me', socialLinks: 'Social media', facebookPage: 'Facebook page',
+    socialLabel: 'Social', socialLinks: 'Social media', facebookPage: 'Facebook page',
   },
   home: {
     site_name: 'farzana.no',
@@ -114,13 +114,13 @@ const dari = {
     home: 'صفحهٔ اصلی', about: 'دربارهٔ من', work: 'فعالیت‌ها', contact: 'تماس',
     publications: 'نوشته‌ها', projects: 'پروژه‌ها', admin: 'مدیریت',
     language: 'زبان', navigation: 'فهرست اصلی', backHome: 'بازگشت به صفحهٔ اصلی ↑', copyright: '© {year} فرزانه الهام کوچی',
-    follow: 'در شبکه‌های اجتماعی دنبال کنید', socialLinks: 'شبکه‌های اجتماعی', facebookPage: 'صفحهٔ فیس‌بوک',
+    socialLabel: 'شبکه‌های اجتماعی', socialLinks: 'شبکه‌های اجتماعی', facebookPage: 'صفحهٔ فیس‌بوک',
   },
   home: {
     site_name: 'farzana.no',
     eyebrow: 'مردم · جامعه · فرصت‌ها',
-    headline: 'برای جامعه‌ای عادلانه‌تر، فراگیرتر و صلح‌آمیزتر',
-    introduction: 'در پیوند میان حقوق بشر، سیاست‌گذاری عمومی، پژوهش و گفتگو کار می‌کنم تا میان دانش، مردم و عمل پلی بسازم.',
+    headline: 'در تلاش برای جامعه‌ای عادلانه‌تر، فراگیرتر و صلح‌آمیزتر',
+    introduction: 'کار من تجربه در پارلمان، توسعهٔ نهادها، جامعهٔ مدنی و حقوق بشر را با پژوهش و تجربهٔ عملی گفتگو در ناروی پیوند می‌دهد.',
     hero_image: '', quote: 'به نیروی مردم، دیدارها و دانش باور دارم؛ و باور دارم که با ساختن پل‌ها در کنار هم، تغییر ممکن می‌شود.',
     quote_image: '', contact_email: '',
     actions: { work: 'دیدن فعالیت‌ها', about: 'دربارهٔ من' },
@@ -221,13 +221,13 @@ const pashto = {
     home: 'کور', about: 'زما په اړه', work: 'کار', contact: 'اړیکه',
     publications: 'خپرونې', projects: 'پروژې', admin: 'مدیریت',
     language: 'ژبه', navigation: 'اصلي غورنۍ', backHome: 'بېرته کور ته ↑', copyright: '© {year} فرزانه الهام کوچی',
-    follow: 'ما په ټولنیزو رسنیو کې تعقیب کړئ', socialLinks: 'ټولنیزې رسنۍ', facebookPage: 'د فېسبوک پاڼه',
+    socialLabel: 'ټولنیزې رسنۍ', socialLinks: 'ټولنیزې رسنۍ', facebookPage: 'د فېسبوک پاڼه',
   },
   home: {
     site_name: 'farzana.no',
     eyebrow: 'خلک · ټولنه · فرصتونه',
-    headline: 'د یوې لا عادلانه، ټولشموله او سوله‌ییزې ټولنې د جوړولو لپاره',
-    introduction: 'زه د بشري حقونو، عامه پالیسۍ، څېړنې او خبرو اترو ترمنځ کار کوم، څو د پوهې، خلکو او عمل ترمنځ اړیکې پیاوړې کړم.',
+    headline: 'د یوې لا عادلانه، ټولشموله او سوله‌ییزې ټولنې لپاره هڅې',
+    introduction: 'زما کار په پارلماني چارو، د بنسټونو پراختیا، مدني ټولنې او بشري حقونو کې تجربه، په ناروې کې له څېړنې او د خبرو اترو له عملي تجربې سره یوځای کوي.',
     hero_image: '', quote: 'زه د خلکو، لیدنو او پوهې پر ځواک باور لرم، او باور لرم چې په ګډه د پلونو په جوړولو سره بدلون شونی دی.',
     quote_image: '', contact_email: '',
     actions: { work: 'زما کار وګورئ', about: 'زما په اړه' },
@@ -324,7 +324,7 @@ const pashto = {
 };
 
 const norwegian = {
-  common: { home: 'Hjem', about: 'Om meg', work: 'Arbeid', contact: 'Kontakt', publications: 'Publikasjoner', projects: 'Prosjekter', admin: 'Admin', language: 'Språk', navigation: 'Hovedmeny', backHome: 'Til forsiden ↑', copyright: '© {year} Farzana Elham Kochai', follow: 'Følg meg', socialLinks: 'Sosiale medier', facebookPage: 'Facebook-side' },
+  common: { home: 'Hjem', about: 'Om meg', work: 'Arbeid', contact: 'Kontakt', publications: 'Publikasjoner', projects: 'Prosjekter', admin: 'Admin', language: 'Språk', navigation: 'Hovedmeny', backHome: 'Til forsiden ↑', copyright: '© {year} Farzana Elham Kochai', socialLabel: 'Sosiale medier', socialLinks: 'Sosiale medier', facebookPage: 'Facebook-side' },
   home: {
     ...defaults,
     actions: { work: 'Utforsk mitt arbeid', about: 'Om meg' },

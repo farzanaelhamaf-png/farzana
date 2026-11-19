@@ -32,7 +32,16 @@ export default function Home({ locale = 'en' }) {
     supabase.from('site_content').select('content').eq('id', 1).single().then(({ data, error }) => {
       if (error || !data?.content) return;
       if (locale === 'no') {
-        setContent({ ...defaults, ...data.content });
+        setContent({
+          ...defaults,
+          ...data.content,
+          headline: data.content.headline === 'Et mer rettferdig, inkluderende og fredelig samfunn'
+            ? defaults.headline
+            : data.content.headline,
+          introduction: data.content.introduction === 'Jeg arbeider i skjæringspunktet mellom menneskerettigheter, offentlig politikk, forskning og dialog – med mål om å bygge broer mellom kunnskap, mennesker og handling.'
+            ? defaults.introduction
+            : data.content.introduction,
+        });
         return;
       }
       const sharedContent = data.content;

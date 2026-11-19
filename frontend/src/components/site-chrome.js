@@ -84,7 +84,7 @@ export function SiteFooter({ locale, currentPage }) {
     <footer className="site-footer">
       <span>{common.copyright.replace('{year}', String(new Date().getFullYear()))}</span>
       <div className="site-footer-social">
-        <span>{common.follow}</span>
+        <span>{common.socialLabel}</span>
         <nav aria-label={common.socialLinks} className="site-footer-social-links">
           {socialLinks.map(({ label, platform, href }) => (
             <a

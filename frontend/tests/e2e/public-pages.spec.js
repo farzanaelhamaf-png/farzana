@@ -43,6 +43,14 @@ test("English homepage renders content, navigation and un-cropped thumbnails", a
 
 test("Norwegian work page shows publication, experience, engagement and media content", async ({ page }) => {
   await mockSupabase(page);
+  await page.goto("/no");
+  await expect(page.getByRole("heading", {
+    name: "Arbeider for et mer rettferdig, inkluderende og fredelig samfunn",
+  })).toBeVisible();
+  await expect(page.getByText(
+    "Arbeidet mitt samler erfaring fra parlamentarisk arbeid, institusjonsutvikling, sivilsamfunn og menneskerettigheter, sammen med forskning og dialogarbeid i Norge.",
+  )).toBeVisible();
+
   await page.goto("/no/work");
 
   await expect(page.getByRole("heading", { name: "Arbeid som bygger broer." })).toBeVisible();
@@ -105,14 +113,16 @@ test("Dari and Pashto pages render with localized language and right-to-left dir
   await page.goto("/fa-af");
   await expect(page.locator("html")).toHaveAttribute("lang", "fa-AF");
   await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
-  await expect(page.getByRole("heading", { name: "برای جامعه‌ای عادلانه‌تر، فراگیرتر و صلح‌آمیزتر" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "در تلاش برای جامعه‌ای عادلانه‌تر، فراگیرتر و صلح‌آمیزتر" })).toBeVisible();
+  await expect(page.getByText("کار من تجربه در پارلمان، توسعهٔ نهادها، جامعهٔ مدنی و حقوق بشر را با پژوهش و تجربهٔ عملی گفتگو در ناروی پیوند می‌دهد.")).toBeVisible();
   await expect(page.getByRole("combobox", { name: "زبان" })).toBeVisible();
   await expect(page.locator('link[rel="alternate"][hreflang="ps-AF"]')).toHaveAttribute("href", "https://farzana.no/ps/");
 
   await page.goto("/ps");
   await expect(page.locator("html")).toHaveAttribute("lang", "ps-AF");
   await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
-  await expect(page.getByRole("heading", { name: "د یوې لا عادلانه، ټولشموله او سوله‌ییزې ټولنې د جوړولو لپاره" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "د یوې لا عادلانه، ټولشموله او سوله‌ییزې ټولنې لپاره هڅې" })).toBeVisible();
+  await expect(page.getByText("زما کار په پارلماني چارو، د بنسټونو پراختیا، مدني ټولنې او بشري حقونو کې تجربه، په ناروې کې له څېړنې او د خبرو اترو له عملي تجربې سره یوځای کوي.")).toBeVisible();
 });
 
 test("language selector preserves the current page when changing language", async ({ page }) => {
@@ -126,10 +136,10 @@ test("language selector preserves the current page when changing language", asyn
 test("all languages share the same header and place contact in the footer", async ({ page }) => {
   await mockSupabase(page);
   const locales = [
-    { prefix: "", home: "Home", about: "About", work: "Work", contact: "Contact", language: "Language", homePath: "/", contactPath: "/contact" },
-    { prefix: "/no", home: "Hjem", about: "Om meg", work: "Arbeid", contact: "Kontakt", language: "Språk", homePath: "/no/", contactPath: "/no/contact" },
-    { prefix: "/fa-af", home: "صفحهٔ اصلی", about: "دربارهٔ من", work: "فعالیت‌ها", contact: "تماس", language: "زبان", homePath: "/fa-af/", contactPath: "/fa-af/contact" },
-    { prefix: "/ps", home: "کور", about: "زما په اړه", work: "کار", contact: "اړیکه", language: "ژبه", homePath: "/ps/", contactPath: "/ps/contact" },
+    { prefix: "", home: "Home", about: "About", work: "Work", contact: "Contact", language: "Language", socialLabel: "Social", homePath: "/", contactPath: "/contact" },
+    { prefix: "/no", home: "Hjem", about: "Om meg", work: "Arbeid", contact: "Kontakt", language: "Språk", socialLabel: "Sosiale medier", homePath: "/no/", contactPath: "/no/contact" },
+    { prefix: "/fa-af", home: "صفحهٔ اصلی", about: "دربارهٔ من", work: "فعالیت‌ها", contact: "تماس", language: "زبان", socialLabel: "شبکه‌های اجتماعی", homePath: "/fa-af/", contactPath: "/fa-af/contact" },
+    { prefix: "/ps", home: "کور", about: "زما په اړه", work: "کار", contact: "اړیکه", language: "ژبه", socialLabel: "ټولنیزې رسنۍ", homePath: "/ps/", contactPath: "/ps/contact" },
   ];
 
   for (const locale of locales) {
@@ -143,6 +153,7 @@ test("all languages share the same header and place contact in the footer", asyn
       await expect(navigation.getByRole("link", { name: locale.contact })).toHaveCount(0);
       await expect(page.locator(".site-header-controls .language-switcher").getByRole("combobox", { name: locale.language })).toBeVisible();
       await expect(page.locator(".site-footer-links").getByRole("link", { name: locale.contact })).toHaveAttribute("href", locale.contactPath);
+      await expect(page.locator(".site-footer-social > span")).toHaveText(locale.socialLabel);
       await expect(page.locator(".site-footer-social-links a")).toHaveCount(4);
       if (pagePath === locale.homePath) {
         await expect(page.getByRole("link", { name: locale.about, exact: true })).toHaveCount(1);
