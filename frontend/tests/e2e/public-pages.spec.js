@@ -73,6 +73,77 @@ test("Norwegian about page renders story, experience areas and contact links", a
   await expect(page.getByRole("link", { name: "Ta kontakt →" })).toHaveAttribute("href", "/no/contact");
 });
 
+test("about story image is hidden when unset and keeps its arch when configured", async ({ page }) => {
+  const mocks = await mockSupabase(page);
+  await page.goto("/no/about");
+  await expect(page.locator(".about-story-image")).toHaveCount(0);
+
+  mocks.content[2].story_image = "http://127.0.0.1:54321/storage/v1/object/public/site-images/story.jpg";
+  await page.reload();
+
+  const frame = page.locator(".about-story-image");
+  const image = frame.locator("img");
+  await expect(image).toHaveAttribute("src", mocks.content[2].story_image);
+  await expect(image).toHaveCSS("object-fit", "cover");
+  await expect(frame).toHaveCSS("border-top-left-radius", "180px");
+});
+
+test("about and work contact buttons share accessible styling", async ({ page }) => {
+  await mockSupabase(page);
+  for (const [url, label] of [["/about", "Get in touch →"], ["/work", "Get in touch ↗"]]) {
+    await page.goto(url);
+    const button = page.getByRole("link", { name: label });
+    await expect(button).toHaveClass(/site-action-button/);
+    await expect(button).toHaveCSS("background-color", "rgb(52, 79, 73)");
+    await expect(button).toHaveCSS("color", "rgb(255, 255, 255)");
+    const contrast = await button.evaluate(element => {
+      const luminance = color => {
+        const channels = color.match(/\d+/g).slice(0, 3).map(value => Number(value) / 255)
+          .map(value => value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4);
+        return 0.2126 * channels[0] + 0.7152 * channels[1] + 0.0722 * channels[2];
+      };
+      const styles = getComputedStyle(element);
+      const [lighter, darker] = [luminance(styles.color), luminance(styles.backgroundColor)].sort((a, b) => b - a);
+      return (lighter + 0.05) / (darker + 0.05);
+    });
+    expect(contrast).toBeGreaterThanOrEqual(4.5);
+
+    await button.hover();
+    await expect(button).toHaveCSS("background-color", "rgb(41, 63, 58)");
+    await button.focus();
+    await expect(button).toHaveCSS("outline-style", "solid");
+    await expect(button).toHaveCSS("outline-width", "3px");
+  }
+});
+
+test("home, about and work layouts fit desktop, tablet and mobile viewports", async ({ page }) => {
+  await mockSupabase(page);
+  for (const viewport of [
+    { width: 1440, height: 1000 },
+    { width: 768, height: 1024 },
+    { width: 390, height: 844 },
+  ]) {
+    await page.setViewportSize(viewport);
+    for (const path of ["/", "/about", "/work"]) {
+      await page.goto(path);
+      const overflow = await page.evaluate(() =>
+        document.documentElement.scrollWidth > document.documentElement.clientWidth
+      );
+      expect(overflow, `${path} overflows at ${viewport.width}px`).toBe(false);
+      await expect(page.locator(".site-header .language-switcher select")).toBeVisible();
+    }
+
+    await page.goto("/");
+    const ratios = await page.locator(".feature-photo").evaluateAll(elements =>
+      elements.map(element => {
+        const { width, height } = element.getBoundingClientRect();
+        return width / height;
+      })
+    );
+    for (const ratio of ratios) expect(ratio).toBeCloseTo(16 / 9, 1);
+  }
+});
+
 test("contact form validates fields and reports a successful submission", async ({ page }) => {
   await mockSupabase(page);
   await page.route("https://challenges.cloudflare.com/**", route => route.fulfill({

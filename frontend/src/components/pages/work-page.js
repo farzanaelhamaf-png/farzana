@@ -231,7 +231,7 @@ export default function ArbeidPage({ locale = "no" }) {
         <p>
           {ui.sections.contactText}
         </p>
-        <Link href={path("contact")} className="work-contact-button">
+        <Link href={path("contact")} className="site-action-button work-contact-button">
           {ui.links.contact}
         </Link>
       </section>

@@ -14,8 +14,28 @@
   --brand-white: #FFFFFF;
 }
 
-.work-contact-button:hover {
+.site-action-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 15px 30px;
+  border: 1px solid var(--brand-deep-forest);
+  background: var(--brand-deep-forest);
+  color: var(--brand-white);
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  transition: background-color 150ms ease;
+}
+
+.site-action-button:hover {
   background: #293F3A;
+}
+
+.site-action-button:focus-visible {
+  outline: 3px solid var(--brand-soft-charcoal);
+  outline-offset: 4px;
 }
 
 .public-page a:focus-visible,
@@ -448,6 +468,7 @@ a.dashboard-card:hover {
 /* ARBEID – FARZANA.NO */
 
 .work-page {
+  --work-section-space: clamp(62px, 6vw, 82px);
   --work-ink: var(--brand-soft-charcoal);
   --work-muted: #4B504D;
   --work-gold: var(--brand-deep-forest);
@@ -485,8 +506,7 @@ a.dashboard-card:hover {
 
 .work-hero {
   position: relative;
-  min-height: 540px;
-  padding: 110px clamp(24px, 10vw, 155px) 100px;
+  padding: clamp(76px, 8vw, 104px) clamp(24px, 10vw, 155px) clamp(64px, 7vw, 88px);
   background: var(--brand-warm-ivory);
   color: var(--work-ink);
   overflow: hidden;
@@ -562,7 +582,7 @@ a.dashboard-card:hover {
   gap: 60px;
   max-width: 1150px;
   margin: auto;
-  padding: 100px 30px;
+  padding: var(--work-section-space) 30px;
 }
 
 .work-intro p {
@@ -573,12 +593,12 @@ a.dashboard-card:hover {
 .work-section {
   max-width: 1180px;
   margin: auto;
-  padding: 85px 30px;
+  padding: var(--work-section-space) 30px;
 }
 
 .work-section-heading {
   max-width: 680px;
-  margin-bottom: 50px;
+  margin-bottom: 40px;
 }
 
 .work-section-heading h2 {
@@ -741,7 +761,7 @@ a.dashboard-card:hover {
 
 .work-contact {
   text-align: center;
-  padding: 110px 25px;
+  padding: var(--work-section-space) 25px;
   background: var(--brand-natural-sand);
   color: var(--brand-soft-charcoal);
 }
@@ -760,13 +780,7 @@ a.dashboard-card:hover {
 }
 
 .work-contact-button {
-  display: inline-block;
   margin-top: 35px;
-  padding: 15px 30px;
-  background: var(--brand-deep-forest);
-  color: var(--brand-white);
-  font-weight: 700;
-  font-size: 14px;
 }
 
 .work-footer {
@@ -779,6 +793,10 @@ a.dashboard-card:hover {
 }
 
 @media (max-width: 700px) {
+  .work-page {
+    --work-section-space: 52px;
+  }
+
   .site-header {
     align-items: flex-start;
     flex-wrap: wrap;
@@ -812,8 +830,7 @@ a.dashboard-card:hover {
   }
 
   .work-hero {
-    min-height: 480px;
-    padding: 85px 25px;
+    padding: 70px 25px;
   }
 
   .work-hero-decoration {
@@ -823,11 +840,11 @@ a.dashboard-card:hover {
   .work-intro {
     grid-template-columns: 1fr;
     gap: 20px;
-    padding: 65px 25px;
+    padding: var(--work-section-space) 25px;
   }
 
   .work-section {
-    padding: 65px 25px;
+    padding: var(--work-section-space) 25px;
   }
 
   .work-publication {
@@ -852,4 +869,13 @@ a.dashboard-card:hover {
   .work-footer {
     flex-direction: column;
   }
+}
+
+.homepage .feature-photo {
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
+
+.homepage .feature-photo img {
+  object-position: center;
 }
