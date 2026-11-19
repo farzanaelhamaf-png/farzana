@@ -33,6 +33,8 @@ const defaultSiteContent = {
     title: "Et liv mellom mennesker, steder og muligheter",
     story_title: "Fra Afghanistan til Norge – og videre",
     story: ["Første historieavsnitt.", "Andre historieavsnitt."],
+    closing_title: "Nysgjerrig på mennesker. Engasjert i muligheter.",
+    closing_text: "Jeg ønsker å bidra der erfaring, forskning og dialog kan skape større forståelse og mer inkluderende løsninger. Jeg er åpen for samarbeid, samtaler og nye prosjekter.",
     areas: [
       { title: "Politikk og menneskerettigheter", description: "Rettigheter og politikk." },
       { title: "Forskning og kunnskap", description: "Forskning og analyse." },

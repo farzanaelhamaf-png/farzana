@@ -19,6 +19,23 @@ export const aboutDefaults = {
   nature_image: '',
   nature_title: 'Jeg finner også mening ute',
   nature_text: 'I Norge har fjell, skog og friluftsliv blitt en viktig del av hverdagen min. Jeg liker å gå tur, møte mennesker og oppdage nye steder. Naturen gir rom for både stillhet og samtaler – og minner meg om at tilhørighet kan vokse på nye steder.',
-  closing_title: 'Nysgjerrig på mennesker. Engasjert i muligheter.',
-  closing_text: 'Jeg ønsker å bidra der erfaring, forskning og dialog kan skape større forståelse og mer inkluderende løsninger. Jeg er åpen for samarbeid, samtaler og nye prosjekter.'
+  closing_title: 'Skape rom for det som er mulig',
+  closing_paragraphs: [
+    'Arbeidet mitt på tvers av lokalsamfunn, institusjoner og landegrenser har brakt med seg ulike historier, perspektiver og erfaringer.',
+    'Jeg ønsker muligheter til å utveksle ideer, dele perspektiver og skape noe sammen gjennom forskning, dialog og samarbeid.',
+  ],
+  closing_text: 'Arbeidet mitt på tvers av lokalsamfunn, institusjoner og landegrenser har brakt med seg ulike historier, perspektiver og erfaringer. Jeg ønsker muligheter til å utveksle ideer, dele perspektiver og skape noe sammen gjennom forskning, dialog og samarbeid.'
 };
+
+export function withCurrentAboutDefaults(content = {}) {
+  const merged = { ...aboutDefaults, ...content };
+  if (
+    content.closing_title === 'Nysgjerrig på mennesker. Engasjert i muligheter.'
+    && content.closing_text === 'Jeg ønsker å bidra der erfaring, forskning og dialog kan skape større forståelse og mer inkluderende løsninger. Jeg er åpen for samarbeid, samtaler og nye prosjekter.'
+  ) {
+    merged.closing_title = aboutDefaults.closing_title;
+    merged.closing_text = aboutDefaults.closing_text;
+    merged.closing_paragraphs = aboutDefaults.closing_paragraphs;
+  }
+  return merged;
+}

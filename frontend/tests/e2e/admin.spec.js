@@ -130,6 +130,34 @@ test("about editor saves content", async ({ page }) => {
   await expect(page.getByRole("status")).toContainText("Lagret!");
   expect(mocks.content[2].title).toBe("Oppdatert om meg-test");
   expect(mocks.content[2].hero_image).toContain(".png");
+
+  await page.getByLabel("Heading (English)").fill("Making space for what’s possible");
+  await page.getByLabel("Paragraph 1 (English)").fill(
+    "My work across communities, institutions and borders has brought different stories, perspectives and lessons.",
+  );
+  await page.getByLabel("Paragraph 2 (English)").fill(
+    "I welcome opportunities to exchange ideas, share perspectives and co-create through research, dialogue and collaboration.",
+  );
+  await page.getByRole("button", { name: "Lagre Om meg" }).click();
+
+  await expect(page.getByRole("status")).toContainText("Lagret!");
+  expect(mocks.content[2].en_closing_title).toBe("Making space for what’s possible");
+  expect(mocks.content[2].en_closing_paragraph_1).toBe(
+    "My work across communities, institutions and borders has brought different stories, perspectives and lessons.",
+  );
+  expect(mocks.content[2].en_closing_paragraph_2).toBe(
+    "I welcome opportunities to exchange ideas, share perspectives and co-create through research, dialogue and collaboration.",
+  );
+  expect(mocks.content[2].closing_title).toBe("Skape rom for det som er mulig");
+  expect(mocks.content[2].closing_text).toBe(
+    "Arbeidet mitt på tvers av lokalsamfunn, institusjoner og landegrenser har brakt med seg ulike historier, perspektiver og erfaringer. Jeg ønsker muligheter til å utveksle ideer, dele perspektiver og skape noe sammen gjennom forskning, dialog og samarbeid.",
+  );
+
+  await page.goto("/about");
+  await expect(page.getByRole("heading", { name: "Making space for what’s possible" })).toBeVisible();
+  await expect(page.getByText("My work across communities, institutions and borders has brought different stories, perspectives and lessons.", { exact: true })).toBeVisible();
+  await page.goto("/no/about");
+  await expect(page.getByRole("heading", { name: "Skape rom for det som er mulig" })).toBeVisible();
 });
 
 test("messages inbox lists a message and persists its status", async ({ page }) => {

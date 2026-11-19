@@ -3,8 +3,11 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
-import { aboutDefaults } from '@/lib/about-content';
+import { aboutDefaults, withCurrentAboutDefaults } from '@/lib/about-content';
+import { getTranslations } from '@/lib/site-translations';
 import { isHeicImage, prepareImageFile } from '@/lib/heic-upload';
+
+const englishAboutDefaults = getTranslations('en').about;
 
 export default function AboutAdmin() {
   const [session, setSession] = useState(null);
@@ -30,7 +33,12 @@ export default function AboutAdmin() {
       if (!active) return;
       if (error) setStatus(`Kunne ikke hente innhold: ${error.message}`);
       else if (!data) setStatus('Innholdsraden mangler. Kjør SQL-kommandoen i veiledningen.');
-      else setContent({ ...aboutDefaults, ...data.content });
+      else setContent({
+        ...withCurrentAboutDefaults(data.content),
+        en_closing_title: data.content.en_closing_title ?? englishAboutDefaults.closing_title,
+        en_closing_paragraph_1: data.content.en_closing_paragraph_1 ?? englishAboutDefaults.closing_paragraphs[0],
+        en_closing_paragraph_2: data.content.en_closing_paragraph_2 ?? englishAboutDefaults.closing_paragraphs[1],
+      });
       setLoading(false);
     }
     load();
@@ -86,6 +94,7 @@ export default function AboutAdmin() {
       <section className={panel}><h2 className="font-serif text-2xl mb-5">Erfaring og engasjement</h2>{(content.areas || []).map((area, i) => <div key={i} className="border-t border-stone-200 pt-5 mt-5"><label className="block text-sm font-medium mb-4">Tittel {i + 1}<input className="mt-2 w-full rounded border border-stone-300 p-3 text-base" value={area.title} onChange={e => updateArea(i, 'title', e.target.value)} /></label><label className="block text-sm font-medium">Beskrivelse<textarea className="mt-2 w-full rounded border border-stone-300 p-3 min-h-24 text-base" value={area.description} onChange={e => updateArea(i, 'description', e.target.value)} /></label></div>)}</section>
       <section className={panel}><h2 className="font-serif text-2xl mb-5">Natur og fritid</h2>{field('Tittel', 'nature_title')}{field('Tekst', 'nature_text', true)}{imageField('Naturbilde', 'nature_image')}</section>
       <section className={panel}><h2 className="font-serif text-2xl mb-5">Veien videre</h2>{field('Tittel', 'closing_title')}{field('Tekst', 'closing_text', true)}</section>
+      <section className={panel}><h2 className="font-serif text-2xl mb-5">About closing section (English)</h2>{field('Heading (English)', 'en_closing_title')}{field('Paragraph 1 (English)', 'en_closing_paragraph_1', true)}{field('Paragraph 2 (English)', 'en_closing_paragraph_2', true)}</section>
       <button type="button" disabled={busy} onClick={save} className="rounded bg-[#173a34] text-white px-7 py-4 disabled:opacity-50">{busy ? 'Arbeider …' : 'Lagre Om meg'}</button>
     </>}{status && <p role="status" className="mt-5 p-4 bg-[#eaece4] rounded">{status}</p>}</div></main>;
 }

@@ -89,7 +89,59 @@ test("Norwegian about page renders story, experience areas and contact links", a
   await expect(page.getByText("Første historieavsnitt.")).toBeVisible();
   await expect(page.getByRole("heading", { name: "Politikk og menneskerettigheter" })).toBeVisible();
   await expect(page.getByRole("link", { name: "Kontakt", exact: true })).toHaveAttribute("href", "/no/contact");
-  await expect(page.getByRole("link", { name: "Ta kontakt →" })).toHaveAttribute("href", "/no/contact");
+  await expect(page.getByRole("link", { name: "Ta kontakt", exact: true })).toHaveAttribute("href", "/no/contact");
+  await expect(page.getByRole("heading", { name: "Skape rom for det som er mulig" })).toBeVisible();
+  await expect(page.getByText("Arbeidet mitt på tvers av lokalsamfunn, institusjoner og landegrenser har brakt med seg ulike historier, perspektiver og erfaringer.", { exact: true })).toBeVisible();
+  await expect(page.getByText("Veien videre", { exact: true })).toHaveCount(0);
+});
+
+test("English about page shows the exact revised closing copy without its label", async ({ page }) => {
+  await mockSupabase(page);
+  await page.goto("/about");
+
+  await expect(page.getByRole("heading", { name: "Making space for what’s possible" })).toBeVisible();
+  await expect(page.getByText(
+    "My work across communities, institutions and borders has brought different stories, perspectives and lessons.",
+    { exact: true },
+  )).toBeVisible();
+  await expect(page.getByText(
+    "I welcome opportunities to exchange ideas, share perspectives and co-create through research, dialogue and collaboration.",
+    { exact: true },
+  )).toBeVisible();
+  await expect(page.getByText("What comes next", { exact: true })).toHaveCount(0);
+  await expect(page.getByRole("link", { name: "Get in touch", exact: true })).toHaveAttribute("href", "/contact");
+});
+
+test("translated about closing copy follows the English version", async ({ page }) => {
+  await mockSupabase(page);
+  const translatedClosings = [
+    {
+      path: "/no/about",
+      title: "Skape rom for det som er mulig",
+      paragraph: "Arbeidet mitt på tvers av lokalsamfunn, institusjoner og landegrenser har brakt med seg ulike historier, perspektiver og erfaringer.",
+      button: "Ta kontakt",
+    },
+    {
+      path: "/fa-af/about",
+      title: "برای آنچه امکان‌پذیر است، فضا باز کنیم",
+      paragraph: "کار من در میان جوامع، نهادها و مرزها، روایت‌ها، دیدگاه‌ها و آموخته‌های گوناگونی را با هم پیوند داده است.",
+      button: "تماس بگیرید",
+    },
+    {
+      path: "/ps/about",
+      title: "د شونې راتلونکې لپاره ځای جوړول",
+      paragraph: "زما کار د ټولنو، بنسټونو او پولو ترمنځ بېلابېلې کیسې، لیدلوري او زده‌کړې سره راټولې کړې دي.",
+      button: "اړیکه ونیسئ",
+    },
+  ];
+
+  for (const translation of translatedClosings) {
+    await page.goto(translation.path);
+    await expect(page.getByRole("heading", { name: translation.title })).toBeVisible();
+    await expect(page.getByText(translation.paragraph, { exact: true })).toBeVisible();
+    await expect(page.getByRole("link", { name: translation.button, exact: true })).toBeVisible();
+    await expect(page.getByText(/What comes next|Veien videre|گام بعدی|راتلونکی ګام/)).toHaveCount(0);
+  }
 });
 
 test("about story image is hidden when unset and keeps its arch when configured", async ({ page }) => {

@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
-import { aboutDefaults } from '@/lib/about-content';
+import { aboutDefaults, withCurrentAboutDefaults } from '@/lib/about-content';
 import { getTranslations } from '@/lib/site-translations';
 import { localePath } from '@/lib/locales';
 import { SiteFooter, SiteHeader } from '@/components/site-chrome';
@@ -17,8 +17,20 @@ export default function AboutPage({ locale = 'no' }) {
     supabase.from('site_content').select('content').eq('id', 2).maybeSingle().then(({ data, error }) => {
       if (error || !data?.content) return;
       setContent(locale === 'no'
-        ? { ...aboutDefaults, ...data.content }
-        : { ...translated, hero_image: data.content.hero_image || translated.hero_image, story_image: data.content.story_image || translated.story_image, nature_image: data.content.nature_image || translated.nature_image });
+        ? withCurrentAboutDefaults(data.content)
+        : {
+          ...translated,
+          hero_image: data.content.hero_image || translated.hero_image,
+          story_image: data.content.story_image || translated.story_image,
+          nature_image: data.content.nature_image || translated.nature_image,
+          ...(locale === 'en' && {
+            closing_title: data.content.en_closing_title || translated.closing_title,
+            closing_paragraphs: [
+              data.content.en_closing_paragraph_1 || translated.closing_paragraphs[0],
+              data.content.en_closing_paragraph_2 || translated.closing_paragraphs[1],
+            ],
+          }),
+        });
     });
   }, [locale, translated]);
   const labels = translated.labels;
@@ -41,7 +53,7 @@ export default function AboutPage({ locale = 'no' }) {
     </section>
     <section className="bg-[var(--brand-natural-sand)] py-20 md:py-24"><div className="max-w-6xl mx-auto px-6"><p className="text-xs uppercase tracking-[0.2em] text-[var(--brand-deep-forest)] mb-4">{labels.areas}</p><h2 className="font-serif text-4xl md:text-5xl mb-12">{labels.areasTitle}</h2><div className="grid md:grid-cols-2 gap-5">{content.areas.map((area, i) => <article key={i} className="bg-[var(--brand-warm-ivory)] p-8 md:p-10 rounded-sm"><span className="text-[var(--brand-deep-forest)] text-sm">0{i+1}</span><h3 className="font-serif text-3xl mt-4 mb-4">{area.title}</h3><p className="text-[#4B504D] leading-7">{area.description}</p></article>)}</div></div></section>
     <section className="max-w-6xl mx-auto px-6 py-20 md:py-28 grid md:grid-cols-2 gap-12 items-center"><div className="h-[450px] overflow-hidden rounded-sm">{picture(content.nature_image, labels.imageNature)}</div><div><p className="text-xs uppercase tracking-[0.2em] text-[var(--brand-deep-forest)] mb-5">{labels.nature}</p><h2 className="font-serif text-4xl md:text-5xl mb-7">{content.nature_title}</h2><p className="text-lg leading-8 text-[#4B504D]">{content.nature_text}</p></div></section>
-    <section className="bg-[var(--brand-warm-ivory)] text-[var(--brand-soft-charcoal)] py-20 md:py-24 text-center px-6"><p className="text-xs uppercase tracking-[0.2em] text-[var(--brand-deep-forest)] mb-5">{labels.closing}</p><h2 className="font-serif text-4xl md:text-5xl max-w-3xl mx-auto leading-tight">{content.closing_title}</h2><p className="max-w-2xl mx-auto mt-7 text-lg leading-8 text-[#4B504D]">{content.closing_text}</p><Link href={path('contact')} className="site-action-button mt-9">{labels.contact}</Link></section>
+    <section className="bg-[var(--brand-warm-ivory)] text-[var(--brand-soft-charcoal)] py-20 md:py-24 text-center px-6">{labels.closing && <p className="text-xs uppercase tracking-[0.2em] text-[var(--brand-deep-forest)] mb-5">{labels.closing}</p>}<h2 className="font-serif text-4xl md:text-5xl max-w-3xl mx-auto leading-tight">{content.closing_title}</h2>{(content.closing_paragraphs || [content.closing_text]).map(paragraph => <p key={paragraph} className="max-w-2xl mx-auto mt-7 text-lg leading-8 text-[#4B504D]">{paragraph}</p>)}<Link href={path('contact')} className="site-action-button mt-9">{labels.contact}</Link></section>
     <SiteFooter locale={locale} currentPage="about" />
   </main>;
 }
